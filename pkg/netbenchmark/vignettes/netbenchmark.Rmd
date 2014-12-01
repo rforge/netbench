@@ -1,0 +1,47 @@
+Netbenchmark
+========================================================
+
+In the last decade, a great number of methods for
+inferring gene regulatory networks from expression data have been proposed.
+
+Several papers have compared and evaluated the different network inference methods relying on a simulated data. However, no publication so far has given comparison results on multiple and diverse datasets nor provided tools to fully reproduce (and possibly extend) the evaluation. 
+
+We propose a systematic evaluation of network inference methods based on a benchmark of several simulated expression data.
+This package allows replication this comparison between the different networks inference algorithms with only one line of code. 
+
+```{r}
+## Not run:
+library(netbenchmark)
+# To generate results of the main study:
+# top20.aupr <- netbenchmark(methods="all",local.noise=20,global.noise=10,noiseType=c("normal","lognormal"),seed=1108) 
+# To generate results of the noise study:
+# noise.aupr <- noise.bench(methods="all",local.noise=seq(0,100,l=5),datasets.num=10,seed=2629)
+# To generate results of the number of experiments study:
+# experiments.aupr <- experiments.bench(methods="all",experiments.num=c(20,50,200,800),datasets.num=10,seed=4677)
+## End(Not run)
+```
+
+The package provides an easy way to compare new techniques with the state-of-the-art  ones and to make new different benchmarks in the future.
+
+First, define the wrapper functions:
+```{r}
+Spermancor<-function(data){
+  cor(data,method="spearman")
+}
+
+Pearsoncor<-function(data){
+  cor(data,method="pearson")
+}
+```
+
+Note that the wrapper function returns a matrix which is the weighted adjacency matrix of the network inferred by the algorithm and that their columns and rows are named.
+
+Evaluate five times this two naive inference methods in syntren300 datasource:
+```{r}
+res<-netbenchmark(datasources.names="syntren300",methods=c("Spermancor","Pearsoncor"))
+aupr<-res[[1]][,-(1:2)]
+```
+Plot the $AUPR_{20}$ results:
+```{r fig.width=7, fig.height=6}
+boxplot(aupr, main="Syntren300")
+```

@@ -1,0 +1,5 @@
+useDynLib(netbenchmark,netbenchmark_rate,netbenchmark_zsc)
+exportPattern("^[^\\.]")
+importFrom(Rcpp, evalCpp)
+importFrom(pracma, trapz)
+import(minet, randomForest, c3net, PCIT, GeneNet, tools)
