@@ -24,8 +24,9 @@ BMC bioinformatics 7.1 (2006): 43.
 
 
 \examples{
+data(syntren300.net)
 # Number of directed edges
-nEdges<- sum(syntren3000.net)
+nEdges<- sum(syntren300.net)
 }
 
 \keyword{datasets}

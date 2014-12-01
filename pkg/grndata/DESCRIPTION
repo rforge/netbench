@@ -7,4 +7,5 @@ Author: Pau Bellot, Catharina Olsen, Patrick E Meyer
 Maintainer: Pau Bellot <pau.bellot@upc.edu>
 Description: Simulated expression data for five large Gene Regulatory Networks from different simulators
 LazyLoad: yes
+LazyData: yes
 License: GPL3

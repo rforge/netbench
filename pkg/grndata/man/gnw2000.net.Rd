@@ -23,6 +23,7 @@ generation and performance profiling of network inference methods." Bioinformati
 \seealso{  \code{\link{gnw2000.data}}, \code{\link{gnw1565.data}}, \code{\link{rogers1000.data}}, \code{\link{syntren300.data}}, \code{\link{syntren1000.data}}}
 
 \examples{
+data(gnw2000.net)
 # Number of directed edges
 nEdges<- sum(gnw2000.net)
 }

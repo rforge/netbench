@@ -23,6 +23,7 @@ generation and performance profiling of network inference methods." Bioinformati
 }
 \seealso{ \code{\link{gnw1565.net}}, \code{\link{gnw2000.data}}, \code{\link{rogers1000.data}}, \code{\link{syntren300.data}}, \code{\link{syntren1000.data}}}
 \examples{
+data(gnw1565.data)
 # Inference
 inf.net <- cor(gnw1565.data)
 }

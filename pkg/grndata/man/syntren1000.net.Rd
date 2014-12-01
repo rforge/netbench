@@ -25,6 +25,7 @@ BMC Bioinformatics 7.1 (2006): 43.
 \seealso{\code{\link{syntren1000.data}},\code{\link{gnw1565.data}}, \code{\link{gnw2000.data}}, \code{\link{rogers1000.data}}, \code{\link{syntren300.data}}}
 
 \examples{
+data(syntren1000.net)
 # Number of directed edges
 nEdges<- sum(syntren1000.net)
 }

@@ -22,6 +22,7 @@ Rogers, Simon, and Mark Girolami. "A Bayesian regression approach to the inferen
 \seealso{\code{\link{rogers1000.data}}, \code{\link{gnw1565.data}}, \code{\link{gnw2000.data}}, \code{\link{syntren300.data}}, \code{\link{syntren1000.data}}}
 
 \examples{
+data(rogers1000.net)
 # Number of directed edges
 nEdges<- sum(rogers1000.net)
 }

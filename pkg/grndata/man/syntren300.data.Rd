@@ -23,6 +23,7 @@ BMC Bioinformatics 7.1 (2006): 43.
 \seealso{\code{\link{syntren300.net}}, \code{\link{syntren1000.data}}, \code{\link{rogers1000.data}}, \code{\link{gnw1565.data}}, \code{\link{gnw2000.data}}}
 
 \examples{
+data(syntren300.data)
 # Inference
 inf.net <- cor(syntren300.data)
 }
