@@ -2,11 +2,11 @@
 \alias{noise.bench}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Noise sensibility test
+Noise sensitivity test
 }
 \description{
-For a given vector of string of the names of wrapper functions that compute a network inference methods, \code{noise.bench} performs a noise sensibility test.
-   It makes use of four different big gene datasets adding Gaussian noise with differnt intensity to evaluate the performance of the methods. 
+For a given vector of string of the names of wrapper functions that compute a network inference methods, \code{noise.bench} performs a noise sensitivity  test.
+   It makes use of different big gene datasets adding Gaussian noise with differnt intensity to evaluate the performance of the methods. 
 }
 \usage{
 noise.bench(methods = "all.fast", datasources.names = "all",
@@ -38,21 +38,24 @@ The argument \code{methods} accepts "all.fast" and "all" (case insensitive) as a
  It evaluates the first \code{no.topedges} \% of the possible links inferred by each algorithm at each dataset.
 }
 \value{
-\code{noise.bench} returns a list with two element. The first is a data.frame which is the result table containing the number of true positives as an evaluation measure. 
+\code{noise.bench} returns a list with three elements: 
+\enumerate{
+\item A data.frame which is the result table containing the number of true positives as an evaluation measure. 
 It evaluates each algorithm specified at \code{methods} at each one of the specified \code{datasources.names} with the \code{local.noise} and \code{global.noise} specified. For each combination
 the algorithms are evaluated \code{datasets.num} times and their results are averaged.
+\item A data.frame which is the corresponding pvalue table of the corresponding statistical test 
+for each one of the \code{datasets.num} between the best algorithm and the others. 
+\item The seed of the random number generators that allows the replication of the results.
+}
 }
 
 \author{
 Pau Bellot and Patrick Meyer
 }
 
+\seealso{ \code{\link{netbenchmark}}, \code{\link{experiments.bench}}}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-\code{\link{netbenchmark}},\code{\link{experiments.bench}}
-}
 \examples{
 \dontrun{
 m<-noise.bench(datasources.names="syntren300",datasets.num=5)
@@ -60,4 +63,4 @@ m<-noise.bench(datasources.names="syntren300",datasets.num=5)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ misc }
+\keyword{ misc } % __ONLY ONE__ keyword per line

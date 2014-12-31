@@ -3,7 +3,6 @@
 #a package that implements various algorithms for inferring mutual 
 #information networks from data.
 
-
 pr.plot<- function( table, device=-1, ... )
 {
   table<-as.data.frame(table)
@@ -70,7 +69,7 @@ auroc <- function(table,k=-1)
   }else{
     k=length(roc$fpr)
   }
-  return(trapz(roc$fpr[1:k],roc$tpr[1:k]))
+  return(pracma::trapz(roc$fpr[1:k],roc$tpr[1:k]))
   
 }
 

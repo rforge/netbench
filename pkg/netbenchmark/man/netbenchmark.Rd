@@ -20,10 +20,18 @@ netbenchmark(methods="all.fast",datasources.names="all",experiments=150,eval="AU
     \item{plot}{(default: FALSE) }
    \item{seed}{A single value, interpreted as an integer to specify seeds, useful for creating simulations that can be reproduced (default: \code{NULL}) - see \code{\link[base]{set.seed}}.}
 }
-\value{
-\code{netbenchmark} returns a list with three data.frames. The first is a data.frame which is the result table of the selected measure. The second is a matrix which is the corresponding pvalue table of the corresponding statistical test 
-for each one of the \code{datasets.num} between the best algorithm and the others. The third is a data.frame which contains the CPU Time Used (in seconds) by the algorithm to infer the network.
-Each data.frame will have the same number of columns as methods provided by the user and an additional one for a random method, and the numbers of rows will depend on the number of \code{datasets.num} and datasources specified by the user.
+\value{ %results.table,pval.table,mean.table,time.table,plots,seed
+\code{netbenchmark} returns a list with six elements. 
+\enumerate{
+\item A data.frame which is the result table of the selected measure. 
+\item A data.frame which is the corresponding pvalue table of the corresponding statistical test 
+for each one of the \code{datasets.num} between the best algorithm and the others. 
+\item A data.frame that sumarizes the first data.frame presentingthe mean and standard deviation of the  measures of each algorithm per datasource.
+\item A data.frame which contains the CPU Time Used (in seconds) by the algorithm to infer the network.
+\item A list containing the mean precision recall curves of the different algorithms for each datasource.
+\item The seed of the random number generators that allows the replication of the results.
+}
+Each of these data.frame will have the same number of columns as methods provided by the user and an additional one for a random method, and the numbers of rows will depend on the number of \code{datasets.num} and \code{datasources.name} specified by the user.
 }
 \description{
   For a given vector of string of the names of wrapper functions that compute a network inference methods, \code{netbenchmark} performs a benchmark between them.
@@ -32,7 +40,7 @@ Each data.frame will have the same number of columns as methods provided by the 
 \details{
  The argument \code{methods} accepts "all.fast" and "all" (case insensitive) as a parameters:
  \itemize{
-\item "all.fast" performs network inference with "aracne", "c3net", "clr", "GeneNet", "mutual ranking", "mrnetb", "pcit"
+\item "all.fast" performs network inference with "aracne", "c3net", "clr", "GeneNet", "mutual ranking", "mrnet", "pcit"
 \item "all" performs network inference with "aracne", "c3net", "clr", "GeneNet", "Genie3", "mutual ranking", mrnet", "mrnetb", "pcit" 
 } 
  All the measures only evaluates the first \code{no.topedges} \% of the possible links inferred by each algorithm at each dataset.
@@ -44,19 +52,13 @@ Each data.frame will have the same number of columns as methods provided by the 
   Maintainer: Pau Bellot <pau.bellot@upc.edu>
 }
 \seealso{ \code{\link{datasource.subsample}},  \code{\link{evaluate}},  \code{\link{comp.metr}}} 
-\references{
- ~~future work~
-}     
+   
 \examples{
 \dontrun{
 top20.fast.list<-netbenchmark()
 top20.list<-netbenchmark(methods="all",eval="no.truepos")
-top50.list<-netbenchmark(datasets.num=8,eval="AUPR",no.topedges=50,noise=10)
+top50.auroc.list<-netbenchmark(datasets.num=8,eval="AUROC",no.topedges=50,global.noise=10)
 top9.list<-netbenchmark(datasets.num=8,no.topedges=9,local.noise=15,noiseType="lognormal")
-#To generate precision table from true positive table:
-# pre.tbl<-cbind(top20.list[[1]][,(1:2)],top20.list[[1]][,-(1:2)]/top20.list[[3]])
-#To generate recall table from true positive table:
-# rec.tbl<-cbind(top20.list[[1]][,(1:2)],top20.list[[1]][,-(1:2)]/top20.list[[4]])
 #To export the tables to LaTeX 
 # library(xtable)
 # xtable(top20.fast.list[[1]])

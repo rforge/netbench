@@ -32,8 +32,8 @@ noise.bench<-function(methods="all.fast",datasources.names="all",experiments=150
   ndata=length(datasources.names)
   results<-as.data.frame(matrix(0,points*ndata,nmeths+4))
   pval<-as.data.frame(matrix(0,points*ndata,nmeths+4))
-  nlinks.table<-matrix(0,nrow=points*ndata,ncol=nmeths+1)
-  npos.table<-matrix(0,nrow=points*ndata,ncol=nmeths+1)
+#   nlinks.table<-matrix(0,nrow=points*ndata,ncol=nmeths+1)
+#   npos.table<-matrix(0,nrow=points*ndata,ncol=nmeths+1)
   Aviabledata<-c("rogers1000","syntren1000","syntren300","gnw1565","gnw2000")
   seeds<-as.list(round(runif(5,max=10000)))
   names(seeds)<-Aviabledata
@@ -127,8 +127,8 @@ noise.bench<-function(methods="all.fast",datasources.names="all",experiments=150
       aux<-wilcox.test(precision[,nmeths+1],precision[,M])
       pval.table[i,nmeths+1]=aux[[3]]
     }
-    nlinks.table[(1:points)+(n-1)*points,]<-matrix(no.edges,points,nmeths+1)
-    npos.table[(1:points)+(n-1)*points,]<-matrix(npos,points,nmeths+1)
+#     nlinks.table[(1:points)+(n-1)*points,]<-matrix(no.edges,points,nmeths+1)
+#     npos.table[(1:points)+(n-1)*points,]<-matrix(npos,points,nmeths+1)
     rown<-c(rown,rep(datasources.names[n],points))
     results[(1:points)+(n-1)*points,1]<-rep(datasources.names[n],points)
     results[(1:points)+(n-1)*points,2]<-local.noise
@@ -139,13 +139,13 @@ noise.bench<-function(methods="all.fast",datasources.names="all",experiments=150
     pval[(1:points)+(n-1)*points,3]<-global.noise
     pval[(1:points)+(n-1)*points,4:(nmeths+4)]<-pval.table
   }
-  rownames(nlinks.table)<-rown
-  colnames(nlinks.table)<-c(methods,"rand")
-  colnames(npos.table)<-c(methods,"rand")
-  rownames(npos.table)<-rown
+#   rownames(nlinks.table)<-rown
+#   colnames(nlinks.table)<-c(methods,"rand")
+#   colnames(npos.table)<-c(methods,"rand")
+#   rownames(npos.table)<-rown
   colnames(results)<-c("Datasource","local.noise","global.noise",methods,"rand")
   colnames(pval)<-c("Datasource","local.noise","global.noise",methods,"rand")
-  list("results"=results,"pval"=pval,"nlinks"=nlinks.table,"npos"=npos.table,"seed"=seed)
+  list("results"=results,"pval"=pval,"seed"=seed)
 }
 
 `.cont`<-function(x,noise=0,noiseType="normal"){

@@ -2,10 +2,10 @@
 \alias{experiments.bench}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Noise sensibility benchmark
+Noise sensitivity benchmark
 }
 \description{
-For a given vector of string of the names of wrapper functions that compute a network inference methods, \code{experiments.bench} performs a number of experiments sensibility test.
+For a given vector of string of the names of wrapper functions that compute a network inference methods, \code{experiments.bench} performs a number of experiments sensitivity  test.
    It makes use of five different big gene datasets subsampling them to generate different 
    datasets.num of the network with different number of experiments.
 }
@@ -34,32 +34,42 @@ experiments.bench(methods = "all.fast", datasources.names = "all",
 \details{
 The argument \code{methods} accepts "all.fast" and "all" (case insensitive) as a parameters:
 \itemize{
-\item "all.fast" performs network inference with "aracne", "c3net", "clr", "GeneNet", "mutual ranking", "mrnetb", "pcit"
+\item "all.fast" performs network inference with "aracne", "c3net", "clr", "GeneNet", "mutual ranking", "mrnet", "pcit"
 \item "all" performs network inference with "aracne", "c3net", "clr", "GeneNet", "Genie3", "mutual ranking", mrnet", "mrnetb", "pcit" 
 } 
  It evaluates the first \code{no.topedges} \% of the possible links inferred by each algorithm at each dataset.
+ 
+  Two different types of noises are added independently:
+  \itemize{
+   \item "Local": the standard deviation of the noise is different for each variable.  
+   \code{local.noise} specifies the percentage for each variable ( \eqn{ \pm 20 \% }).
+   \item "Global": the standard deviation of the noise is the same for the whole dataset. 
+    \code{global.noise} specifies the percentage of the mean standard deviation of all the variables ( \eqn{ \pm 20 \% }).
+  }
+  
+ The distribution of noise is set with \code{noiseType}, it is possible to choose between "normal" (\code{\link[stats]{rnorm}})
+  and "lognormal" (\code{\link[stats]{rlnorm}}). The argument \code{noiseType} can be a single string, this
+  specifies the same distribution for both "Local" and "Global" noise, it also can be a vector of strings with two elements,
+  the former specifies the distribution of "Local" noise and the later the distribution of "Global" noise.
 }
 \value{
-\code{experiments.bench} returns a list with two element. The first is a data.frame which is the result table containing the number of true positives as an evaluation measure. 
+\code{experiments.bench} returns a list with three elements:
+\enumerate{
+\item A data.frame which is the result table containing the number of true positives as an evaluation measure. 
 It evaluates each algorithm specified at \code{methods} at each one of the specified
 \code{datasources.names} with different noise intensities.
-
+\item A data.frame which is the corresponding pvalue table of the corresponding statistical test 
+for each one of the \code{datasets.num} between the best algorithm and the others. 
+\item The seed of the random number generators that allows the replication of the results.
 }
-% \references{
-% %% ~put references to the literature/web site here ~
-% }
+}
 \author{
 Pau Bellot and Patrick Meyer
 }
-% \note{
-% %%  ~~further notes~~
-% }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
-% \seealso{
-% %% ~~objects to See Also as \code{\link{help}}, ~~~
-% }
+\seealso{ \code{\link{netbenchmark}}, \code{\link{noise.bench}}}
+
 \examples{
 \dontrun{
 m<-experiments.bench(datasources.names="syntren300",datasets.num=5)
@@ -67,6 +77,4 @@ m<-experiments.bench(datasources.names="syntren300",datasets.num=5)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
-
+\keyword{ misc }
