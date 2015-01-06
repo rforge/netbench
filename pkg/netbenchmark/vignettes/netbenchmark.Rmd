@@ -1,12 +1,14 @@
-Netbenchmark
-========================================================
+---
+title: "Netbenchmark"
+output: html_document
+---
 
-In the last decade, a great number of methods for
-inferring gene regulatory networks from expression data have been proposed.
+In the last decade, several methods have tackled the challenge of reconstructing gene regulatory networks from gene expression data. Several papers have compared and evaluated the different network inference methods relying on a simulated data.
 
-Several papers have compared and evaluated the different network inference methods relying on a simulated data. However, no publication so far has given comparison results on multiple and diverse datasets nor provided tools to fully reproduce (and possibly extend) the evaluation. 
+This new comparison that assesses different methods in a high-heterogeneity data scenario which could reveal the specialization of methods for the different network types and data. 
 
-We propose a systematic evaluation of network inference methods based on a benchmark of several simulated expression data.
+This package characterizes the performance, data requirements and noise robustness of gene regulatory networks inference methods.  
+
 This package allows replication this comparison between the different networks inference algorithms with only one line of code. 
 
 ```{r}
@@ -21,11 +23,11 @@ library(netbenchmark)
 ## End(Not run)
 ```
 
-The package provides an easy way to compare new techniques with the state-of-the-art  ones and to make new different benchmarks in the future.
+The package provides an easy way to compare new techniques with the state-of-the-art ones and to make new different benchmarks in the future.
 
 First, define the wrapper functions:
 ```{r}
-Spermancor<-function(data){
+Spearmancor<-function(data){
   cor(data,method="spearman")
 }
 
@@ -36,12 +38,22 @@ Pearsoncor<-function(data){
 
 Note that the wrapper function returns a matrix which is the weighted adjacency matrix of the network inferred by the algorithm and that their columns and rows are named.
 
-Evaluate five times this two naive inference methods in syntren300 datasource:
+Evaluate five times this two simple inference methods with syntren300 datasource:
 ```{r}
-res<-netbenchmark(datasources.names="syntren300",methods=c("Spermancor","Pearsoncor"))
+res<-netbenchmark(datasources.names="syntren300",methods=c("Spearmancor","Pearsoncor"))
 aupr<-res[[1]][,-(1:2)]
 ```
 Plot the $AUPR_{20}$ results:
 ```{r fig.width=7, fig.height=6}
 boxplot(aupr, main="Syntren300")
+```
+
+Plot the mean Precision-Recall curves:
+```{r}
+PR<-res[[5]][[1]]
+col<-rainbow(3)
+plot(PR$rec[,1],PR$pre[,1],type="l",lwd=3,col=col[1],xlab="Recall",ylab="Precision",main="Syntren300",xlim=c(0,1),ylim=c(0,1))
+lines(PR$rec[,2],PR$pre[,2],type="l",lwd=3,col=col[2])
+lines(PR$rec[,3],PR$pre[,3],type="l",lwd=3,col=col[3])
+legend("topright", inset=.05,title="Method",colnames(PR$rec),fill=col)
 ```

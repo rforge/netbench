@@ -9,8 +9,8 @@ True underlying network used to generate the dataset
  }
 \usage{data(syntren1000.net)}
 \format{
- \code{true.net} is the true underlying network used to generate the dataset loaded
- at \code{\link{syntren1000.data}}.
+ \code{true.net} is the true underlying network used to generate the 
+ dataset loaded  at \code{\link{syntren1000.data}}.
 }
 \source{
  SynTReN 1.1.3 with source network : ecoli\_nn.sif
@@ -22,7 +22,9 @@ expression data for design and analysis of structure learning algorithms."
 BMC Bioinformatics 7.1 (2006): 43.
 }
 
-\seealso{\code{\link{syntren1000.data}},\code{\link{gnw1565.data}}, \code{\link{gnw2000.data}}, \code{\link{rogers1000.data}}, \code{\link{syntren300.data}}}
+\seealso{\code{\link{syntren1000.data}},\code{\link{gnw1565.data}}, 
+\code{\link{gnw2000.data}}, \code{\link{rogers1000.data}}, 
+\code{\link{syntren300.data}}}
 
 \examples{
 data(syntren1000.net)

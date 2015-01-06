@@ -12,26 +12,21 @@ mutrank.wrap(data)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{data}{Numeric matrix with the microarray dataset to infer the network. Columns contain variables and rows contain samples.}
+   \item{data}{Numeric matrix with the microarray dataset to infer the network. 
+   columns contain variables and rows contain samples.}
 }
 % \details{
 % %%  ~~ If necessary, more details than the description above ~~
 % }
-% \value{
-% %%  ~Describe the value returned
-% %%  If it is a LIST, use
-% %%  \item{comp1 }{Description of 'comp1'}
-% %%  \item{comp2 }{Description of 'comp2'}
-% %% ...
-% }
+\value{    
+   \code{mutrank.wrap} returns a matrix which is the weighted adjacency 
+   matrix of the network inferred by Mutual Rank algorithm.
+}
  \references{
-Obayashi, Takeshi, and Kengo Kinoshita. "Rank of correlation coefficient as a comparable measure for biological significance of gene coexpression." DNA research 16.5 (2009): 249-260. }
-% \author{
-% %%  ~~who you are~~
-% }
-% \note{
-% %%  ~~further notes~~
-% }
+   Obayashi, Takeshi, and Kengo Kinoshita. "Rank of correlation coefficient as a 
+   comparable measure for biological significance of gene coexpression." 
+   DNA research 16.5 (2009): 249-260. }
+
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
@@ -39,14 +34,12 @@ Obayashi, Takeshi, and Kengo Kinoshita. "Rank of correlation coefficient as a co
 % %% ~~objects to See Also as \code{\link{help}}, ~~~
 % }
 \examples{
-\dontrun{
-# Inference
-net<-mutrank.wrap(syntren300.data)
-# Evaluation
-table <- evaluate(net,syntren300.net)
-}
+   # Data
+   data<-runif(100)
+   dim(data)<-c(10,10)
+   # Inference
+   net<-mutrank.wrap(as.data.frame(data))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ misc }
