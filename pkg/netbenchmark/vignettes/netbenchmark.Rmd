@@ -23,7 +23,7 @@ inference algorithms with only one line of code.
     library(netbenchmark)
     # To generate results of the main study:
     # top20.aupr <- netbenchmark(methods="all",local.noise=20,global.noise=10,
-    noiseType=c("normal","lognormal"),seed=1108) 
+    #    noiseType=c("normal","lognormal"),seed=1108) 
     # To generate results of the noise study:
     # noise.aupr <- noise.bench(methods="all",local.noise=seq(0,100,l=5),
     #    datasets.num=10,seed=2629)

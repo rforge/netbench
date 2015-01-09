@@ -20,7 +20,7 @@
 %%  ~~ If necessary, more details than the description above ~~
 %}
 \value{
- A matrix of doubles with the inferred adjacency matrix.
+    A matrix of doubles with the inferred adjacency matrix.
 }
 
 \references{
