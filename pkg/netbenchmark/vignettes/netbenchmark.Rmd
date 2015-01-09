@@ -3,57 +3,73 @@ title: "Netbenchmark"
 output: html_document
 ---
 
-In the last decade, several methods have tackled the challenge of reconstructing gene regulatory networks from gene expression data. Several papers have compared and evaluated the different network inference methods relying on a simulated data.
+In the last decade, several methods have tackled the challenge of 
+reconstructing gene regulatory networks from gene expression data. 
+Several papers have compared and evaluated the different network inference 
+methods relying on a simulated data.
 
-This new comparison that assesses different methods in a high-heterogeneity data scenario which could reveal the specialization of methods for the different network types and data. 
+This new comparison that assesses different methods in a high-heterogeneity 
+data scenario which could reveal the specialization of methods for the 
+different network types and data. 
 
-This package characterizes the performance, data requirements and noise robustness of gene regulatory networks inference methods.  
+This package characterizes the performance, data requirements and noise 
+robustness of gene regulatory networks inference methods.  
 
-This package allows replication this comparison between the different networks inference algorithms with only one line of code. 
+This package allows replication this comparison between the different networks 
+inference algorithms with only one line of code. 
 
 ```{r}
-## Not run:
-library(netbenchmark)
-# To generate results of the main study:
-# top20.aupr <- netbenchmark(methods="all",local.noise=20,global.noise=10,noiseType=c("normal","lognormal"),seed=1108) 
-# To generate results of the noise study:
-# noise.aupr <- noise.bench(methods="all",local.noise=seq(0,100,l=5),datasets.num=10,seed=2629)
-# To generate results of the number of experiments study:
-# experiments.aupr <- experiments.bench(methods="all",experiments.num=c(20,50,200,800),datasets.num=10,seed=4677)
-## End(Not run)
+    ## Not run:
+    library(netbenchmark)
+    # To generate results of the main study:
+    # top20.aupr <- netbenchmark(methods="all",local.noise=20,global.noise=10,
+    noiseType=c("normal","lognormal"),seed=1108) 
+    # To generate results of the noise study:
+    # noise.aupr <- noise.bench(methods="all",local.noise=seq(0,100,l=5),
+    #    datasets.num=10,seed=2629)
+    # To generate results of the number of experiments study:
+    # experiments.aupr <- experiments.bench(methods="all",
+    #    experiments.num=c(20,50,200,800),datasets.num=10,seed=4677)
+    ## End(Not run)
 ```
 
-The package provides an easy way to compare new techniques with the state-of-the-art ones and to make new different benchmarks in the future.
+The package provides an easy way to compare new techniques with  
+state-of-the-art ones and to make new different benchmarks in the future.
 
 First, define the wrapper functions:
 ```{r}
-Spearmancor<-function(data){
-  cor(data,method="spearman")
-}
+    Spearmancor<-function(data){
+        cor(data,method="spearman")
+    }
 
-Pearsoncor<-function(data){
-  cor(data,method="pearson")
-}
+    Pearsoncor<-function(data){
+        cor(data,method="pearson")
+    }
 ```
 
-Note that the wrapper function returns a matrix which is the weighted adjacency matrix of the network inferred by the algorithm and that their columns and rows are named.
+Note that the wrapper function returns a matrix which is the weighted 
+adjacency matrix of the network inferred by the algorithm and that their 
+columns and rows are named.
 
-Evaluate five times this two simple inference methods with syntren300 datasource:
+Evaluate five times this two simple inference methods with syntren300 
+datasource:
 ```{r}
-res<-netbenchmark(datasources.names="syntren300",methods=c("Spearmancor","Pearsoncor"))
-aupr<-res[[1]][,-(1:2)]
+    res<-netbenchmark(datasources.names="syntren300",
+        methods=c("Spearmancor","Pearsoncor"))
+    aupr<-res[[1]][,-(1:2)]
 ```
 Plot the $AUPR_{20}$ results:
 ```{r fig.width=7, fig.height=6}
-boxplot(aupr, main="Syntren300")
+    boxplot(aupr, main="Syntren300")
 ```
 
 Plot the mean Precision-Recall curves:
 ```{r}
-PR<-res[[5]][[1]]
-col<-rainbow(3)
-plot(PR$rec[,1],PR$pre[,1],type="l",lwd=3,col=col[1],xlab="Recall",ylab="Precision",main="Syntren300",xlim=c(0,1),ylim=c(0,1))
-lines(PR$rec[,2],PR$pre[,2],type="l",lwd=3,col=col[2])
-lines(PR$rec[,3],PR$pre[,3],type="l",lwd=3,col=col[3])
-legend("topright", inset=.05,title="Method",colnames(PR$rec),fill=col)
+    PR<-res[[5]][[1]]
+    col<-rainbow(3)
+    plot(PR$rec[,1],PR$pre[,1],type="l",lwd=3,col=col[1],xlab="Recall",
+        ylab="Precision",main="Syntren300",xlim=c(0,1),ylim=c(0,1))
+    lines(PR$rec[,2],PR$pre[,2],type="l",lwd=3,col=col[2])
+    lines(PR$rec[,3],PR$pre[,3],type="l",lwd=3,col=col[3])
+    legend("topright", inset=.05,title="Method",colnames(PR$rec),fill=col)
 ```

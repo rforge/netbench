@@ -2,15 +2,14 @@
 \name{datasource.subsample}
 \alias{datasource.subsample}
 \title{Subsampling datasource procedure}
-
 \description{
     \code{datasource.subsample} picks randomly the specified amount of samples 
-    from the original datasource
-    and also adds noise to the subsampled dataset if it is specified.
+    from the original datasource and also adds noise to the subsampled 
+    dataset if it is specified.
 }
 \usage{
     datasource.subsample(datasource,experiments=NA,datasets.num=5,
-    local.noise=20,global.noise=0,noiseType="normal",samplevar=TRUE)
+        local.noise=20,global.noise=0,noiseType="normal",samplevar=TRUE)
 }
 \arguments{
     \item{datasource}{data.frame where columns contain variables and rows 
@@ -71,9 +70,6 @@
     # Inference
     inf.net.1 <- cor(data.list.1[[1]])
     inf.net.2 <- cor(data.list.2[[4]])
-    # Evaluate
-    table.1 <- evaluate(inf.net.1,syntren300.net)
-    table.2 <- evaluate(inf.net.2,syntren300.net)
 }
 \keyword{misc}
 

@@ -4,7 +4,6 @@ library(RUnit)
 runTests = function()
 {
   test_DataSouces()
-  
 } # runTests
 #------------------------------------------------------------------------------
 test_DataSouces = function()
@@ -25,6 +24,6 @@ test_DataSouces = function()
         checkEquals(nrow(data), nexp[n])
         checkEquals(sum(net), edges[n])
       checkEquals(sum(is.na(data)),0)
-  }
+    }
 } # test_DataSouces
 #------------------------------------------------------------------------------

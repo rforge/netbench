@@ -9,7 +9,7 @@
     Z-score c++ function
 }
 \usage{
-zsc(x)
+    zsc(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -29,7 +29,6 @@ zsc(x)
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
     \code{\link{netbenchmark}}
 }

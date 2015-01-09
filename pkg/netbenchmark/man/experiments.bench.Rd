@@ -2,11 +2,11 @@
 \alias{experiments.bench}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Noise sensitivity benchmark
+    Noise sensitivity benchmark
 }
 \description{
-    For a given vector of string of the names of wrapper functions that compute a 
-    network inference methods, \code{experiments.bench} performs a number of 
+    For a given vector of string of the names of wrapper functions that compute 
+    a network inference methods, \code{experiments.bench} performs a number of 
     experiments sensitivity test. 
     It makes use of five different big gene datasets subsampling them to 
     generate different datasets.num of the network with different number 
@@ -19,11 +19,10 @@ Noise sensitivity benchmark
         global.noise = 0, noiseType = "normal", sym = TRUE,
         seed = NULL)
 }
-
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-    \item{methods}{A vector of strings containing the names of network inference 
-    algorithms wrappers to be compared (default: "all.fast").}
+    \item{methods}{A vector of strings containing the names of network 
+    inference algorithms wrappers to be compared (default: "all.fast").}
     \item{datasources.names}{A vector of strings containing the names of 
     network datasets to be included in the benchmark (default: "all").}
     \item{experiments}{A vector to set the number of experiments to test 
@@ -100,9 +99,9 @@ Noise sensitivity benchmark
 \author{
     Pau Bellot and Patrick Meyer
 }
-
-\seealso{ \code{\link{netbenchmark}}, \code{\link{noise.bench}}}
-
+\seealso{ 
+    \code{\link{netbenchmark}}, \code{\link{noise.bench}}
+}
 \examples{
     # Define a wrapper of a simple inference method 
     Spearmancor<-function(data){

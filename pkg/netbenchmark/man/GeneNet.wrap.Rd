@@ -1,23 +1,23 @@
 \name{GeneNet.wrap}
 \alias{GeneNet.wrap}
 \title{GeneNet wrapper function}
-\description{Default wrapper function for the GeneNet network inference 
-algorithm}
+\description{
+    Default wrapper function for the GeneNet network inference algorithm
+}
 \usage{
     GeneNet.wrap(data)
 }
 \arguments{
-    \item{data}{Numeric matrix with the microarray dataset to infer the network. 
-    Columns contain variables and rows contain samples.}
+    \item{data}{Numeric matrix with the microarray dataset to infer the 
+    network. Columns contain variables and rows contain samples.}
 }
-
 \details{
     GeneNEt uses an heuristic for learning statistically a causal network. 
     It relies on a conversion of a network inferred through correlation 
     into a partial correlation graph. Then, a partial ordering of the nodes 
     is assigned by means of a multiple testing of the log-ratio of standardized 
-    partial variances. This allows identifying a directed acyclic causal network 
-    as a sub-graph of the partial correlation network. 
+    partial variances. This allows identifying a directed acyclic causal 
+    network as a sub-graph of the partial correlation network. 
 }
 \value{
     \code{GeneNet.wrap} The function returns a matrix which is the weighted 
@@ -31,7 +31,7 @@ algorithm}
     Opgen-Rhein, Rainer, and Korbinian Strimmer. "Inferring gene dependency 
     networks from genomic longitudinal data: a functional data approach." 
     RevStat 4.1 (2006): 53-65.
-    
+
     Opgen-Rhein, Rainer, and Korbinian Strimmer. "Using regularized dynamic 
     correlation to infer gene dependency networks from time-series 
     microarray data." Proceedings of the 4th International Workshop on 
@@ -43,8 +43,10 @@ algorithm}
     molecular biology 4.1 (2005): 32.
 }
 
-\seealso{ \code{\link{netbenchmark}}, 
-\code{\link{evaluate}}, \code{\link[GeneNet]{GeneNet-package}}}
+\seealso{ 
+    \code{\link{netbenchmark}}, \code{\link{evaluate}}, 
+    \code{\link[GeneNet]{GeneNet-package}}
+}
 \examples{
     # Data
     data<-runif(100)

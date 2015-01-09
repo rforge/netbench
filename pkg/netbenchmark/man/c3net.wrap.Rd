@@ -30,7 +30,6 @@ inference algorithm }
     causal core of gene regulatory networks." 
     BMC Systems Biology 4.1 (2010): 132.
 }
-
 \seealso{ \code{\link{netbenchmark}},  
 \code{\link{evaluate}}, \code{\link[c3net]{c3net}}}
 \examples{

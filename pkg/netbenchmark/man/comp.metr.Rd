@@ -9,7 +9,6 @@
 \alias{mean.pr}
 \alias{roc.plot}
 \title{Compute metrics}
-
 \description{
     A group of functions to plot precision-recall and ROC curves and to compute 
     f-scores from the matrix returned by the \code{\link{evaluate}} function.
@@ -21,11 +20,10 @@
     pr.plot(table,device=-1,...)
     roc.plot(table,device=-1,...)
 }
-
 \arguments{
     \item{table}{This is the matrix returned by the \code{evaluate} function 
     where columns contain the confusion matrix \code{TP,FP,TN,FN} values. 
-     - see \code{\link{evaluate}}.}
+    - see \code{\link{evaluate}}.}
     \item{beta}{Numeric used as the weight of the recall in the f-score 
     formula - see details. The default value of this argument is -1, 
     meaning precision as important as recall.}
@@ -42,8 +40,8 @@
     The function \code{roc.plot} (\code{pr.plot}) plots the ROC-curve 
     (PR-curve) and returns the device associated with the plotting window.
     
-    The function \code{auroc} (\code{aupr}) computes the area under the ROC-curve 
-    (PR-curve) using the trapezoidal approximation until point k. 
+    The function \code{auroc} (\code{aupr}) computes the area under the 
+    ROC-curve (PR-curve) using the trapezoidal approximation until point k. 
     
     The function \code{fscore} returns fscores according to the confusion 
     matrices contained in the 'table' argument - see details.
@@ -52,17 +50,18 @@
 \details{
     A confusion matrix contains FP,TP,FN,FP values.
     \itemize{
-        \item "true positive rate" \eqn{tpr = \frac{TP}{TN+TP}}{tpr = TP/(TN+TP)}
-	    \item "false positive rate" \eqn{fpr = \frac{FP}{FN+FP}}{fpr = FP/(FN+FP)}	
+        \item "true positive rate" 
+        \eqn{tpr = \frac{TP}{TN+TP}}{tpr = TP/(TN+TP)}
+	    \item "false positive rate" 
+        \eqn{fpr = \frac{FP}{FN+FP}}{fpr = FP/(FN+FP)}	
 	    \item "precision" \eqn{p = \frac{TP}{FP+TP}}{p = TP/(FP+TP)}
 	    \item "recall" \eqn{r = \frac{TP}{TP+FN}}{r = TP/(TP+FN)}
 	    \item "f-beta-score" 
-	    \eqn{F_\beta = (1+\beta) \frac{p r} {r + \beta p}}{Fbeta = (1+beta) * p*r/(r + beta*p)}
+	    \eqn{F_\beta = (1+\beta) \frac{p r} {r + \beta p}}
+        {Fbeta = (1+beta) * p*r/(r + beta*p)}
     }
 }
-
 \seealso{\code{\link{evaluate}},  \code{\link{plot}}}
-
 \examples{
     # Inference
     Net <- cor(syntren300.data)
@@ -75,4 +74,3 @@
     idx<-which.max(fscore(tbl))
 }
 \keyword{misc}
-

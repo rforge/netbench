@@ -2,7 +2,7 @@
 \alias{netbenchmark}
 \title{Benchmarking of several network inference algorithms from data}
 \usage{
-netbenchmark(methods="all.fast",datasources.names="all",experiments=150,
+    netbenchmark(methods="all.fast",datasources.names="all",experiments=150,
         eval="AUPR",no.topedges=20,datasets.num=5,local.noise=20,global.noise=0,
         noiseType="normal",sym=TRUE,plot=FALSE,seed=NULL)
 }
@@ -14,9 +14,9 @@ netbenchmark(methods="all.fast",datasources.names="all",experiments=150,
     \item{experiments}{Integer specifying the number of experiments to generate 
     the subsampled datasets (default: 150) 
     - see \code{\link{datasource.subsample}}.}
-    \item{eval}{The name of the evaluation metric among the following ones:
-     "no.truepos", "AUROC" or "AUPR" (default : "AUPR") 
-     - see \code{\link{evaluate}}.}
+    \item{eval}{The name of the evaluation metric among the following ones: 
+    "no.truepos", "AUROC" or "AUPR" (default : "AUPR") 
+    - see \code{\link{evaluate}}.}
     \item{no.topedges}{Float specifying the percentage number of links to be 
     considered in the evaluation (default: 20).}
     \item{datasets.num}{Integer specifying the number of datasets.num to be 
@@ -33,31 +33,32 @@ netbenchmark(methods="all.fast",datasources.names="all",experiments=150,
     \item{sym}{Boolean specifying if the evaluation is symmetric 
     (default: TRUE) - see \code{\link{evaluate}}.}
     \item{plot}{(default: FALSE)}
-    \item{seed}{A single value, interpreted as an integer to specify seeds,
-     useful for creating simulations that can be reproduced 
-     (default: \code{NULL}) - see \code{\link[base]{set.seed}}.}
+    \item{seed}{A single value, interpreted as an integer to specify seeds, 
+    useful for creating simulations that can be reproduced 
+    (default: \code{NULL}) - see \code{\link[base]{set.seed}}.}
 }
 
 \value{ 
-\code{netbenchmark} returns a list with six elements. 
-\enumerate{
-\item A data.frame which is the result table of the selected measure. 
-\item A data.frame which is the corresponding pvalue table of the corresponding 
-statistical test for each one of the \code{datasets.num} between the best 
-algorithm and the others. 
-\item A data.frame that sumarizes the first data.frame presenting the mean and 
-standard deviation of the    measures of each algorithm per datasource.
-\item A data.frame which contains the CPU Time Used (in seconds) by the 
-algorithm to infer the network.
-\item A list containing the mean precision recall curves of the different 
-algorithms for each datasource.
-\item The seed of the random number generators that allows the replication of 
-the results.
-}
-Each of these data.frame will have the same number of columns as methods 
-provided by the user and an additional one for a random method, and the numbers 
-of rows will depend on the number of \code{datasets.num} and 
-\code{datasources.name} specified by the user.
+    \code{netbenchmark} returns a list with six elements. 
+    \enumerate{
+        \item A data.frame which is the result table of the selected measure. 
+        \item A data.frame which is the corresponding pvalue table of the 
+        corresponding statistical test for each one of the \code{datasets.num} 
+        between the best algorithm and the others. 
+        \item A data.frame that sumarizes the first data.frame presenting the 
+        mean and standard deviation of the measures of each algorithm per 
+        datasource.
+        \item A data.frame which contains the CPU Time Used (in seconds) by the 
+        algorithm to infer the network.
+        \item A list containing the mean precision recall curves of the 
+        different algorithms for each datasource.
+        \item The seed of the random number generators that allows the 
+        replication of the results.
+    }
+    Each of these data.frame will have the same number of columns as methods 
+    provided by the user and an additional one for a random method, and the
+    number of rows will depend on the number of \code{datasets.num} and 
+    \code{datasources.name} specified by the user.
 }
 
 \description{
@@ -70,45 +71,47 @@ of rows will depend on the number of \code{datasets.num} and
 }
 
 \details{
- The argument \code{methods} accepts "all.fast" and "all" (case insensitive) 
- as a parameters:
- \itemize{
-\item "all.fast" performs network inference with "aracne", "c3net", "clr", 
-"GeneNet", "mutual ranking", "mrnet", "pcit"
-\item "all" performs network inference with "aracne", "c3net", "clr", 
-"GeneNet", "Genie3", "mutual ranking", mrnet", "mrnetb", "pcit" 
+    The argument \code{methods} accepts "all.fast" and "all" (case insensitive) 
+    as a parameters:
+    \itemize{
+        \item "all.fast" performs network inference with "aracne", "c3net", 
+        "clr", "GeneNet", "mutual ranking", "mrnet", "pcit"
+        \item "all" performs network inference with "aracne", "c3net", "clr", 
+        "GeneNet", "Genie3", "mutual ranking", mrnet", "mrnetb", "pcit" 
 } 
- All the measures only evaluates the first \code{no.topedges} \% of the 
- possible links inferred by each algorithm at each dataset.
- The statistical used is the Wilcoxon Rank Sum Test 
- (\code{\link{wilcox.test}}). This test compares the number of true 
- positives of any method with number of trials specified with the best 
- method at each replicate.
+    All the measures only evaluates the first \code{no.topedges} \% of the 
+    possible links inferred by each algorithm at each dataset.
+    The statistical used is the Wilcoxon Rank Sum Test 
+    (\code{\link{wilcox.test}}). This test compares the number of true 
+    positives of any method with number of trials specified with the best 
+    method at each replicate.
 }
 
 \author{
     Pau Bellot, Catharina Olsen and Patrick E Meyer 
     Maintainer: Pau Bellot <pau.bellot@upc.edu>
 }
-\seealso{ \code{\link{datasource.subsample}}, 
-\code{\link{evaluate}}, \code{\link{comp.metr}}}    
+\seealso{ 
+    \code{\link{datasource.subsample}}, \code{\link{evaluate}},
+    \code{\link{comp.metr}}
+}    
 \examples{
-# Define a wrapper of a simple inference method 
-Spearmancor<-function(data){
-  cor(data,method="spearman")
-}
-results<-netbenchmark(datasources.names="syntren300",datasets.num=2,
-methods="Spearmancor")
-\dontrun{
-top20.fast.list<-netbenchmark()
-top20.list<-netbenchmark(methods="all",eval="no.truepos")
-top50.auroc.list<-netbenchmark(datasets.num=8,eval="AUROC",
-no.topedges=50,global.noise=10)
-top9.list<-netbenchmark(datasets.num=8,no.topedges=9,local.noise=15,
-noiseType="lognormal")
-#To export the tables to LaTeX 
-# library(xtable)
-# xtable(top20.fast.list[[1]])
-}
+    # Define a wrapper of a simple inference method 
+    Spearmancor<-function(data){
+        cor(data,method="spearman")
+    }
+    results<-netbenchmark(datasources.names="syntren300",datasets.num=2,
+    methods="Spearmancor")
+    \dontrun{
+        top20.fast.list<-netbenchmark()
+        top20.list<-netbenchmark(methods="all",eval="no.truepos")
+        top50.auroc.list<-netbenchmark(datasets.num=8,eval="AUROC",
+            no.topedges=50,global.noise=10)
+        top9.list<-netbenchmark(datasets.num=8,no.topedges=9,local.noise=15,
+            noiseType="lognormal")
+        #To export the tables to LaTeX 
+        # library(xtable)
+        # xtable(top20.fast.list[[1]])
+    }
 }
 \keyword{misc}
