@@ -1,7 +1,9 @@
 \name{mrnet.wrap}
 \alias{mrnet.wrap}
 \title{mrnet wrapper function}
-\description{Default function for the MRNET network inference algorithm}
+\description{
+    Default function for the MRNET network inference algorithm
+}
 \usage{
     mrnet.wrap(data)
 }
@@ -10,10 +12,10 @@
     network. Columns contain variables and rows contain samples.}
 }
 \details{
-    The MRNET approach consists in repeating a MRMR feature selection procedure 
-    for each variable of the dataset.
-    The MRMR method starts by selecting the variable \eqn{X_i}{Xi} having the 
-    highest mutual information with the target \eqn{Y}{Y}. 
+    The MRNET approach consists in repeating a MRMR feature selection 
+    procedure for each variable of the dataset.
+    The MRMR method starts by selecting the variable \eqn{X_i}{Xi} having 
+    the highest mutual information with the target \eqn{Y}{Y}. 
     In the following steps, given a set \eqn{\mathcal{S}}{S} of selected 
     variables, the criterion updates \eqn{\mathcal{S}}{S} by choosing the 
     variable \eqn{X_k}{Xk} that maximizes 
@@ -24,15 +26,15 @@
     computed when \eqn{X_j}{Xj} is the target.
 }
 \value{
-    \code{mrnet.wrap} returns a matrix which is the weighted adjacency matrix 
-    of the network inferred by MRNET algorithm. 
+    \code{mrnet.wrap} returns a matrix which is the weighted adjacency  
+    matrix of the network inferred by MRNET algorithm. 
     The wrapper uses the "spearman" correlation (can be used with continuous 
     data) to estimate the entropy - see \code{\link[minet]{build.mim}}.
 }
 \references{
     Patrick E. Meyer, Kevin Kontos, Frederic Lafitte and Gianluca Bontempi. 
     Information-theoretic inference of large transcriptional regulatory 
-    networks. EURASIP Journal on Bioinformatics and Systems Biology, 2007. 
+    networks. EURASIP Journal on Bioinformatics and Systems Biology, 2007.
 
     Patrick E. Meyer, Frederic Lafitte and Gianluca Bontempi. 
     minet: A R/Bioconductor Package for Inferring Large Transcriptional 
@@ -49,11 +51,9 @@
 }
 \examples{
     # Data
-    data<-runif(100)
-    dim(data)<-c(10,10)
+    data <- runif(100)
+    dim(data) <- c(10,10)
     # Inference
-    net<-mrnet.wrap(as.data.frame(data))
+    net <- mrnet.wrap(as.data.frame(data))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ misc }

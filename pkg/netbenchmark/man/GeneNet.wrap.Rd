@@ -15,9 +15,9 @@
     GeneNEt uses an heuristic for learning statistically a causal network. 
     It relies on a conversion of a network inferred through correlation 
     into a partial correlation graph. Then, a partial ordering of the nodes 
-    is assigned by means of a multiple testing of the log-ratio of standardized 
-    partial variances. This allows identifying a directed acyclic causal 
-    network as a sub-graph of the partial correlation network. 
+    is assigned by means of a multiple testing of the log-ratio of 
+    standardized partial variances. This allows identifying a directed 
+    acyclic causal network as a sub-graph of the partial correlation network.
 }
 \value{
     \code{GeneNet.wrap} The function returns a matrix which is the weighted 
@@ -49,11 +49,9 @@
 }
 \examples{
     # Data
-    data<-runif(100)
-    dim(data)<-c(10,10)
+    data <- runif(100)
+    dim(data) <- c(10,10)
     # Inference
-    net<-GeneNet.wrap(as.data.frame(data))
+    net <- GeneNet.wrap(as.data.frame(data))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ misc }

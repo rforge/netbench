@@ -1,13 +1,12 @@
 \name{experiments.bench}
 \alias{experiments.bench}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
     Noise sensitivity benchmark
 }
 \description{
-    For a given vector of string of the names of wrapper functions that compute 
-    a network inference methods, \code{experiments.bench} performs a number of 
-    experiments sensitivity test. 
+    For a given vector of string of the names of wrapper functions that 
+    compute a network inference methods, \code{experiments.bench} performs a 
+    number of experiments sensitivity test. 
     It makes use of five different big gene datasets subsampling them to 
     generate different datasets.num of the network with different number 
     of experiments.
@@ -19,7 +18,6 @@
         global.noise = 0, noiseType = "normal", sym = TRUE,
         seed = NULL)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
     \item{methods}{A vector of strings containing the names of network 
     inference algorithms wrappers to be compared (default: "all.fast").}
@@ -32,17 +30,17 @@
     - see \code{\link{evaluate}}.}
     \item{no.topedges}{Float specifying the percentage  number of links to be 
     considered in the evaluation (default: 20).}
-    \item{datasets.num}{Number of repetitions in the noise evaluation, for each 
-    method and each dataset and each noise intensity (default: 3).}
-    \item{local.noise}{Integer specifying the desired percentage of local noise 
-    to be added at each of the subsampled datasets (default: 20) 
+    \item{datasets.num}{Number of repetitions in the noise evaluation, for 
+    each method and each dataset and each noise intensity (default: 3).}
+    \item{local.noise}{Integer specifying the desired percentage of local 
+    noise to be added at each of the subsampled datasets (default: 20) 
     - see \code{\link{datasource.subsample}}.}
     \item{global.noise}{Integer specifying the desired percentage of global 
-    noise to be added at each of the subsampled datasets (default: 20)
-     - see \code{\link{datasource.subsample}}.}
-    \item{noiseType}{String specifying the type of the noise to be added:
-     "normal" or "lognormal" (default: "normal") 
-     - see \code{\link{datasource.subsample}}.}
+    noise to be added at each of the subsampled datasets (default: 20) 
+    - see \code{\link{datasource.subsample}}.}
+    \item{noiseType}{String specifying the type of the noise to be added: 
+    "normal" or "lognormal" (default: "normal") 
+    - see \code{\link{datasource.subsample}}.}
     \item{sym}{Boolean specifying if the evaluation is symmetric 
     (default: TRUE) - see \code{\link{evaluate}}.}
     \item{seed}{A single value, interpreted as an integer to specify seeds, 
@@ -56,11 +54,12 @@
         \item "all.fast" performs network inference with "aracne", "c3net", 
         "clr", "GeneNet", "mutual ranking", "mrnet", "pcit"
         \item "all" performs network inference with "aracne", "c3net", 
-        "clr", "GeneNet", "Genie3", "mutual ranking", mrnet", "mrnetb", "pcit" 
+        "clr", "GeneNet", "Genie3", "mutual ranking", "mrnet", "mrnetb", 
+        "pcit" 
     } 
-    It evaluates the first \code{no.topedges} \% of the possible links inferred
-    by each algorithm at each dataset.
- 
+    It evaluates the first \code{no.topedges} \% of the possible links 
+    inferred by each algorithm at each dataset.
+
     Two different types of noises are added independently:
     \itemize{
         \item "Local": the standard deviation of the noise is different 
@@ -71,14 +70,14 @@
         for the whole dataset. 
         \code{global.noise} specifies the percentage of the mean standard 
         deviation of all the variables ( \eqn{ \pm 20 \% }).
-  }
-  The distribution of noise is set with \code{noiseType}, it is possible to 
-  choose between "normal" (\code{\link[stats]{rnorm}}) and "lognormal" 
-  (\code{\link[stats]{rlnorm}}). The argument \code{noiseType} can be a 
-  single string, this specifies the same distribution for both "Local" 
-  and "Global" noise, it also can be a vector of strings with two 
-  elements, the former specifies the distribution of "Local" noise and 
-  the later the distribution of "Global" noise.
+    }
+    The distribution of noise is set with \code{noiseType}, it is possible 
+    to choose between "normal" (\code{\link[stats]{rnorm}}) and "lognormal" 
+    (\code{\link[stats]{rlnorm}}). The argument \code{noiseType} can be a 
+    single string, this specifies the same distribution for both "Local" 
+    and "Global" noise, it also can be a vector of strings with two 
+    elements, the former specifies the distribution of "Local" noise and 
+    the later the distribution of "Global" noise.
 }
 \value{
     \code{experiments.bench} returns a list with three elements:
@@ -86,8 +85,8 @@
         \item A data.frame which is the result table containing the number of 
         true positives as an evaluation measure. 
         It evaluates each algorithm specified at \code{methods} at each one 
-        of the specified
-        \code{datasources.names} with different noise intensities.
+        of the specified \code{datasources.names} with different noise 
+        intensities.
         \item A data.frame which is the corresponding pvalue table of the 
         corresponding statistical test 
         for each one of the \code{datasets.num} between the best algorithm 
@@ -104,12 +103,10 @@
 }
 \examples{
     # Define a wrapper of a simple inference method 
-    Spearmancor<-function(data){
+    Spearmancor <- function(data){
         cor(data,method="spearman")
     }
-    results<-experiments.bench(datasources.names="syntren300",
+    results <- experiments.bench(datasources.names="syntren300",
     datasets.num=2,methods="Spearmancor")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ misc }

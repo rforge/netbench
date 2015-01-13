@@ -1,7 +1,9 @@
 \name{pcit.wrap}
 \alias{pcit.wrap}
 \title{pcit wrapper function}
-\description{Default wrapper function for the pcit network inference algorithm}
+\description{
+    Default wrapper function for the pcit network inference algorithm
+}
 \usage{
     pcit.wrap(data)
 }
@@ -39,10 +41,10 @@
 }
 \examples{
     # Data
-    data<-runif(100)
-    dim(data)<-c(10,10)
+    data <- runif(100)
+    dim(data) <- c(10,10)
     # Inference
-    net<-pcit.wrap(as.data.frame(data))
+    net <- pcit.wrap(as.data.frame(data))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -1,6 +1,6 @@
-clr.wrap<-function(data){
+clr.wrap <- function(data){
     # estimator="spearman"
     mim <- build.mim(data,estimator="spearman")
-    net <-clr(mim)
+    net <- clr(mim)
     return(net);
 }

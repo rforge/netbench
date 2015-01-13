@@ -5,7 +5,8 @@ using namespace Rcpp;
 using namespace std;
 
 // [[Rcpp::export]]
-NumericMatrix zsc(NumericMatrix x) {
+NumericMatrix zsc(NumericMatrix x) 
+{
     int nrow = x.nrow(), ncol = x.ncol(), pmin, i, j;
     double min, tmp;
     NumericVector mean(ncol),var(ncol),t(ncol);

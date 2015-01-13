@@ -1,4 +1,4 @@
-aracne.wrap<-function(data){
+aracne.wrap <- function(data){
     #estimator="spearman"
     #eps=0
     mim <- build.mim(data,estimator="spearman")

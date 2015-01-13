@@ -13,8 +13,8 @@
 }
 \details{
     The motivation of the Algorithm for the Reconstruction of 
-    Accurate Cellular NEtworks (ARACNE) is that many similar measures between 
-    variables may be the result of indirect effects. In order 
+    Accurate Cellular NEtworks (ARACNE) is that many similar measures 
+    between variables may be the result of indirect effects. In order 
     to delete the indirect effect the algorithm relies on the 
     ``Data Processing Inequality'', this process removes the weakest link 
     in every triplet of connected variables.
@@ -35,18 +35,15 @@
     "minet: AR/Bioconductor package for inferring large transcriptional 
     networks using mutual information." BMC Bioinformatics 9.1 (2008): 461.
 }  
-
 \seealso{
     \code{\link{netbenchmark}}, \code{\link{evaluate}},
     \code{\link[minet]{aracne}}
 }
 \examples{
- # Data
-    data<-runif(100)
-    dim(data)<-c(10,10)
+    # Data
+    data <- runif(100)
+    dim(data) <- c(10,10)
     # Inference
-    net<-aracne.wrap(as.data.frame(data))
+    net <- aracne.wrap(as.data.frame(data))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ misc }

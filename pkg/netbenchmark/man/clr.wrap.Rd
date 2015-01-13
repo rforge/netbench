@@ -1,32 +1,33 @@
 \name{clr.wrap}
 \alias{clr.wrap}
 \title{CLR wrapper function}
-\description{Default wrapper function for the CLR network inference algorithm }
+\description{
+    Default wrapper function for the CLR network inference algorithm
+}
 \usage{
     clr.wrap(data)
 }
 \arguments{
-    \item{data}{Numeric matrix with the microarray dataset to infer the 
-    network. Columns contain variables and rows contain samples.}	
+    \item{data}{Numeric matrix with the microarray dataset to infer 
+    the network. Columns contain variables and rows contain samples.}
 }
 \details{
-    The Context Likelihood or Relatedness network (CLR) method derives a score 
-    that is associated to the empirical distribution of the mutual information 
-    values, in practice the score between gene \eqn{X_i}{Xi} and gene 
-    \eqn{X_j}{Xj} is defined as follows 
-    \eqn{z_{ij}=\sqrt{z^2_i+z^2_j}}{z_{ij}=\sqrt{z^2_i+z^2_j}}, where:
+    The Context Likelihood or Relatedness network (CLR) method derives 
+    a score that is associated to the empirical distribution of the 
+    mutual information  values, in practice the score between gene 
+    \eqn{X_i}{Xi} and gene \eqn{X_j}{Xj} is defined as follows 
+    \eqn{z_{ij}=\sqrt{z^2_i+z^2_j}}{z_{ij}=\sqrt{z^2_i+z^2_j}}, where: 
     \deqn{
         z_i=max \left( 0,\frac{I(X_i;X_j)-\mu_i}{\sigma_i} \right)
     }{z_i=max( 0,(I(Xi;Xj)-\mu_i)/\sigma_i )}
     
     \eqn{\mu_i}{\mu_i} and \eqn{\sigma_i}{\sigma_i} are 
-    respectively the mean and standard deviation of the empirical distribution 
-    of the mutual information between both genes, this process could be seen 
-    as a normalization of the Mutual Information pairwise network.
+    respectively the mean and standard deviation of the empirical 
+    distribution of the mutual information between both genes.
 }
 \value{
-    \code{clr.wrap} returns a matrix which is the weighted adjacency matrix of 
-    the network inferred by CLR algorithm.
+    \code{clr.wrap} returns a matrix which is the weighted adjacency 
+    matrix of the network inferred by CLR algorithm.
     The wrapper uses the "spearman" correlation 
     (can be used with continuous data) to estimate the 
     entropy - see \code{\link[minet]{build.mim}}. 
@@ -41,11 +42,9 @@
 \code{\link{evaluate}}, \code{\link[minet]{clr}}}
 \examples{
     # Data
-    data<-runif(100)
-    dim(data)<-c(10,10)
+    data <- runif(100)
+    dim(data) <- c(10,10)
     # Inference
-    net<-clr.wrap(as.data.frame(data))
+    net <- clr.wrap(as.data.frame(data))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ misc }

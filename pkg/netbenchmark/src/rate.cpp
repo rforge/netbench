@@ -33,7 +33,7 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 NumericMatrix rate(CharacterMatrix PredEdgeList,CharacterMatrix GSEdgeList,
-    int ngenes,int sym) 
+    int ngenes,int sym)
 {
     int TP=0, npos, nl=0,FP=0,FN,TN;
     npos = GSEdgeList.nrow();
@@ -59,7 +59,7 @@ NumericMatrix rate(CharacterMatrix PredEdgeList,CharacterMatrix GSEdgeList,
             P[i]=1;
         }else{
             P[i]=0;
-        }	
+        }
     }
     NumericMatrix results(nl,4); // matrix with TP,FP,TN,FN
     for(int i=0;i<nl;i++){

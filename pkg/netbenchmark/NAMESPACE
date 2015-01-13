@@ -1,4 +1,4 @@
-useDynLib(netbenchmark,netbenchmark_rate,netbenchmark_zsc)
+useDynLib(netbenchmark, .registration=TRUE)
 exportPattern("^[^\\.]")
 importFrom(Rcpp, evalCpp)
 importFrom(pracma, trapz)

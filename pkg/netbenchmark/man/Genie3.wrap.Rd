@@ -15,18 +15,17 @@ inference algorithm}
     uses the Random Forests feature selection technique to solve 
     a regression problem for each of the genes in the network. 
     In each of the regression problems, the expression pattern of the target
-    gene should be predicted from the expression patterns of all transcription 
-    factors. 
-    The importance of each transcription factor in the prediction of the target 
-    gene is taken as an indication of an apparent regulatory link. 
+    gene should be predicted from the expression patterns of all 
+    transcription factors. 
+    The importance of each transcription factor in the prediction of the 
+    target gene is taken as an indication of an apparent regulatory link. 
     Then these candidate regulatory links are aggregated over all genes to
     generate a ranking for the whole network.
- }
-
+}
 \value{
-    \code{Genie3.wrap} returns a matrix which is the weighted adjacency matrix 
-    of the network inferred by Genie3 algorithm. 500 trees are used in ensemble 
-    for each target gene. 
+    \code{Genie3.wrap} returns a matrix which is the weighted adjacency 
+    matrix of the network inferred by Genie3 algorithm. 500 trees are used 
+    in ensemble for each target gene. 
 }
 \references{
     Irrthum, Alexandre, Louis Wehenkel, and Pierre Geurts. "Inferring 
@@ -39,11 +38,9 @@ inference algorithm}
 \seealso{ \code{\link{netbenchmark}}, \code{\link{evaluate}}}
 \examples{
     # Data
-    data<-runif(100)
-    dim(data)<-c(10,10)
+    data <- runif(100)
+    dim(data) <- c(10,10)
     # Inference
-    net<-Genie3.wrap(as.data.frame(data))
+    net <- Genie3.wrap(as.data.frame(data))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ misc }

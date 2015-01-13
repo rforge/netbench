@@ -1,9 +1,8 @@
-
 \name{mrnetb.wrap}
 \alias{mrnetb.wrap}
 \title{mrnetb wrapper function}
 \description{
-Default wrapper function for the MRNETB network inference algorithm
+    Default wrapper function for the MRNETB network inference algorithm
 }
 \usage{
     mrnetb.wrap(data)
@@ -13,10 +12,10 @@ Default wrapper function for the MRNETB network inference algorithm
     network. Columns contain variables and rows contain samples.}
 }
 \details{
-    \code{\link[minet]{mrnetb}} takes the mutual information matrix as input in 
-    order to infer the network using 
-    the maximum relevance/minimum redundancy criterion combined with a 
-    backward elimination and a sequential replacement - see references. 
+    \code{\link[minet]{mrnetb}} takes the mutual information matrix as input 
+    in order to infer the network using the maximum relevance/minimum 
+    redundancy criterion combined with a backward elimination and a 
+    sequential replacement - see references. 
     This method is a variant of mrnet.
 }
 \value{
@@ -36,19 +35,16 @@ Default wrapper function for the MRNETB network inference algorithm
     Patrick E. Meyer, Kevin Kontos, Frederic Lafitte and Gianluca Bontempi. 
     Information-theoretic inference of large transcriptional regulatory
     networks. EURASIP Journal on Bioinformatics and Systems Biology, 2007.
- }
-
+}
 \seealso{ 
     \code{\link{netbenchmark}},
-   \code{\link{evaluate}}, \code{\link[minet]{mrnet}}
+    \code{\link{evaluate}}, \code{\link[minet]{mrnet}}
 }
 \examples{
     # Data
-    data<-runif(100)
-    dim(data)<-c(10,10)
+    data <- runif(100)
+    dim(data) <- c(10,10)
     # Inference
-    net<-mrnetb.wrap(as.data.frame(data))
+    net <- mrnetb.wrap(as.data.frame(data))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ misc }
