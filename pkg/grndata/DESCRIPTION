@@ -1,7 +1,7 @@
 Package: grndata
 Type: Package
 Title: Synthetic Expression Data for Gene Regulatory Network Inference
-Version: 0.99.0
+Version: 0.99.1
 Date: 2014-12-01
 Author: Pau Bellot, Catharina Olsen, Patrick E Meyer
 Maintainer: Pau Bellot <pau.bellot@upc.edu>
