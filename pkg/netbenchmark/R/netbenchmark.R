@@ -23,15 +23,22 @@ netbenchmark <- function(methods="all.fast",datasources.names="all",
         if (tolower(datasources.names)=="all"){
             datasources.names <- c("rogers1000","syntren1000","syntren300",
                 "gnw1565","gnw2000")
+        }else{
+            if(tolower(datasources.names)=="toy"){
+                datasources.names <- "toy"
+            }
         }
     }
     Availabledata <- c("rogers1000","syntren1000","syntren300",
-        "gnw1565","gnw2000")
+        "gnw1565","gnw2000","toy")
+    if(!all(datasources.names %in% Availabledata)){
+        stop("The specified datasources are not available")
+    }
     seeds <- as.list(round(runif(length(Availabledata),max=1e9)))
     names(seeds) <- Availabledata
     ndata <- length(datasources.names)
     if(!is.na(experiments)){
-        for(n in 1:ndata){
+        for(n in seq_len(ndata)){
             #loading the whole datasource
             datasource <- eval(parse(text=paste(datasources.names[n],
             ".data",sep=""))) 
@@ -58,8 +65,8 @@ netbenchmark <- function(methods="all.fast",datasources.names="all",
     colnames(time.table) <- c("Origin","experiments",names)
     rownames(time.table) <- as.character(1:nnets)
     plots <- list(ndata)
-    for(n in 1:ndata){ #for each of the datasources
-        cat(paste("datasource:",datasources.names[n],"\n"))
+    for(n in seq_len(ndata)){ #for each of the datasources
+        message(paste("datasource:",datasources.names[n],"\n"))
         datasource <- eval(parse(text=paste(datasources.names[n],
             ".data",sep="")))
         true.net <- eval(parse(text=paste(datasources.names[n],".net",
@@ -84,20 +91,20 @@ netbenchmark <- function(methods="all.fast",datasources.names="all",
         npos.table[(1:datasets.num)+(n-1)*datasets.num,] <- matrix(npos,
             datasets.num,nmeths+1)
         tp.mat <- matrix(0,no.edges,nmeths+1)
-        for(i in 1:length(data.list)){
+        for(i in seq_along(data.list)){
             tp.local.mat <- matrix(0,no.edges,nmeths+1)
             colnames(tp.local.mat) <- c(methods,"rand")
             sd <- data.list[[i]] 
             c.row <- (n-1)*datasets.num+i  
             results.table[c.row,1]=datasources.names[n]
             results.table[c.row,2]=dim(sd)[1]
-            cat(paste(" dataset:",as.character(i),"\n"))
+            message(paste(" dataset:",as.character(i),"\n"))
             conf.mat <-  matrix(0,nrow=nmeths,ncol=4)
             colnames(conf.mat) <- c("TP","FP","TN","FN")
             rownames(conf.mat) <- names
             best <- 0
-            for(j in 1:nmeths){
-                cat(paste(names[j],"\n"))
+            for(j in seq_len(nmeths)){
+                message(paste(names[j],"\n"))
                 ptm <- proc.time()
                 net <- do.call(names[j],list(sd))
                 t <- proc.time() - ptm
@@ -141,7 +148,7 @@ netbenchmark <- function(methods="all.fast",datasources.names="all",
         }
         res <- results.table[(1:datasets.num)+datasets.num*(n-1),-(1:2)]
         which.max(apply(res,2,mean))->M
-        for(j in 1:nmeths){
+        for(j in seq_len(nmeths)){
             if(j!=M){
                 aux <- wilcox.test(res[,j],res[,M])
                 pval.table[,j+1]=aux[[3]]

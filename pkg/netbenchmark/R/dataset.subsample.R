@@ -21,11 +21,8 @@ datasource.subsample <- function(datasource,experiments=NA,datasets.num=5,
         smps <- rep(experiments,datasets.num)
     }
     if(sum(smps)>s[1]){
-        warning("The specified number of experiments and 
-            datasets is bigger than the orginal number of experiments in the 
-            dataset, sampling with replacement will be used")
         idxs <- double()
-        for(n in 1:datasets.num){
+        for(n in seq_len(datasets.num)){
             idxs <- c(idxs,sample(s[1],smps[n],replace = FALSE))
         }  
     }else{
@@ -34,7 +31,7 @@ datasource.subsample <- function(datasource,experiments=NA,datasets.num=5,
     if(length(noiseType)==1){
         rep(noiseType,2)->noiseType
     }
-    for(n in 1:datasets.num){
+    for(n in seq_len(datasets.num)){
         idx <- idxs[1:smps[n]]
         idxs <- idxs[-(1:smps[n])]
         rdata <- datasource[idx,]
@@ -61,7 +58,7 @@ datasource.subsample <- function(datasource,experiments=NA,datasets.num=5,
     return(data.list) 
 }
 
-`.addnoise` <- function(x,noise=0,noiseType="normal"){
+.addnoise <- function(x,noise=0,noiseType="normal"){
     if(sd(x)!=0){
         s.d <- runif(1,noise*0.8,noise*1.2)*sd(x)/100
     }else{

@@ -8,7 +8,7 @@ GeneNet.wrap <- function(data){
     net <- matrix(0,ngenes,ngenes)
     colnames(net) <- colnames(data)
     rownames(net) <- colnames(data)
-    for(i in 1:length(idx)){
+    for(i in seq_along(idx)){
         net[test.results[i,2],test.results[i,3]] <- test.results[i,6]
     }
     return(net);

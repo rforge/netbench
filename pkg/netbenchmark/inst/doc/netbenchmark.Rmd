@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Netbenchmark}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::knitr}
   \usepackage[utf8]{inputenc}
 ---
 
@@ -32,11 +32,21 @@ Toy example for main benchmark:
                                noiseType=c("normal","lognormal"),
                                datasets.num = 2,experiments = 40,
                                seed=1422976420)
-   
 ```
-The first element of the returned list is the $AUPR_{20}$:
-```{r print}
-   print(top20.aupr[[1]])
+
+To generate results of toy noise study:
+```{r noise_study}
+    noise.aupr <- noise.bench(methods="all",local.noise=seq(0,100,l=3),
+                              datasources.names = "Toy",datasets.num=2,
+                              experiments = 40,seed=2629)
+```
+
+To generate results of the number of experiments study:
+```{r experiments_study}
+    experiments.aupr <- experiments.bench(methods="all",
+                                          datasources.names = "Toy",
+                                          experiments=c(20,30,60),
+                                          datasets.num=2,seed=4677)
 ```
 
 The package provides an easy way to compare new techniques with  
@@ -64,7 +74,7 @@ datasource:
         methods=c("Spearmancor","Pearsoncor"))
     aupr <- res[[1]][,-(1:2)]
 ```
-Make a boxplot the $AUPR_{20}$ results:
+Plot the $AUPR_{20}$ results:
 ```{r fig.width=7, fig.height=6}
     boxplot(aupr, main="Syntren300")
 ```

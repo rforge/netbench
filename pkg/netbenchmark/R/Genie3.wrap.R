@@ -52,7 +52,7 @@ Genie3.wrap <- function(data){
 # element w_ij (row i, column j) gives the importance of the link
 # from regulatory gene i to target gene i
 
-`.get.weight.matrix` <- function(expr.matrix, K="sqrt", nb.trees=1000, 
+.get.weight.matrix <- function(expr.matrix, K="sqrt", nb.trees=1000, 
     input.idx=NULL, importance.measure="IncNodePurity", seed=NULL, 
     trace=TRUE, ...)
 {
@@ -95,7 +95,7 @@ Genie3.wrap <- function(data){
             missing.gene.names <- setdiff(input.gene.names, gene.names)
             if (length(missing.gene.names) != 0) {
                 for (missing.gene.name in missing.gene.names) {
-                    cat(paste("Gene ", missing.gene.name,
+                    message(paste("Gene ", missing.gene.name,
                         " was not in the expression matrix\n", sep=""))
                 }
                 stop("Aborting computation")
@@ -113,7 +113,7 @@ Genie3.wrap <- function(data){
         stop("Parameter K must be \"sqrt\", or \"all\", or an integer")
     }
     if (trace) {
-        cat(paste("Starting RF computations with ", nb.trees,
+        message(paste("Starting RF computations with ", nb.trees,
             " trees/target gene,\nand ", mtry,
             " candidate input genes/tree node\n",
             sep=""))
@@ -122,7 +122,7 @@ Genie3.wrap <- function(data){
     # compute importances for every target gene
     for (target.gene.idx in seq(from=1, to=num.genes)) {
         if (trace) {
-            cat(paste("Computing gene ", target.gene.idx, "/", num.genes,
+            message(paste("Computing gene ", target.gene.idx, "/", num.genes,
                 "\n", sep=""))
             flush.console()
         }
@@ -141,7 +141,7 @@ Genie3.wrap <- function(data){
 }
 
 # utility function to convert linear index to (row,col) index for matrix
-`.lin.to.square` <-  function(i, nrow) {
+.lin.to.square <-  function(i, nrow) {
     col <- ((i - 1) %/% nrow) + 1
     row <- ((i - 1) %% nrow) + 1
     return(c(row, col))

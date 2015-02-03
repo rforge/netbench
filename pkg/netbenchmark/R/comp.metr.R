@@ -88,22 +88,22 @@ aupr <- function(table,k=-1)
     return(pracma::trapz(pr$r[1:k],pr$p[1:k]))
 }
 
-`.results.plot` <- function(table){
+.results.plot <- function(table){
     dev.new();
     par(mfrow=c(length(table),1)) 
-    for(n in 1:length(table)){
+    for(n in seq_along(table)){
         boxplot(table[[n]])
         title(main=paste("Datasource: ",as.character(n),sep=""))
     }
 }
 
-`.get.pr.plot` <- function(m.pr,dataset.name="",...)
+.get.pr.plot <- function(m.pr,dataset.name="",...)
 {
     dev.new() 
     par(mar=c(5.1, 4.1, 4.1, 8.1), xpd=TRUE)
     nmeths <- dim(m.pr$pre)[2]
     col <- rainbow(nmeths)
-    for(i in 1:nmeths){
+    for(i in seq_len(nmeths)){
         if(i==1){
             plot(m.pr$rec[,i],m.pr$pre[,i], xlab="recall",
                 ylab="precision", 
@@ -116,7 +116,7 @@ aupr <- function(table,k=-1)
         lty=rep(1,nmeths),lwd=rep(2.5,nmeths))
 }
 
-`.get.pr` <- function(tp.mat,tp)
+.get.pr <- function(tp.mat,tp)
 {
     s <- dim(tp.mat)
     pre <- tp.mat/matrix(rep(1:s[1],s[2]),s[1])
@@ -124,14 +124,14 @@ aupr <- function(table,k=-1)
     list("pre"=pre,"rec"=rec)
 }
 
-`.pgfplots.export` <- function(m.pr,dataset.name="",dir,points=2000)
+.pgfplots.export <- function(m.pr,dataset.name="",dir,points=2000)
 {
     s <- dim(m.pr$pre)
     id <- round(seq(1,s[1],length.out=points))
     names <- colnames(m.pr$pre)
     names <- sapply(names, file_path_sans_ext)
     pwd <- getwd() 
-    for(i in 1:s[2]){
+    for(i in seq_len(s[2])){
         aux <- matrix(0,points,2)
         colnames(aux) <- c("pre","rec")
         aux[,2] <- m.pr$rec[id,i]

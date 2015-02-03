@@ -2,7 +2,6 @@
 #include <math.h>       /* sqrt */
 #include <vector>
 using namespace Rcpp;
-using namespace std;
 
 // [[Rcpp::export]]
 NumericMatrix zsc(NumericMatrix x) 

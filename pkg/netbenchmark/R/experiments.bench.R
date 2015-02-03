@@ -23,13 +23,17 @@ experiments.bench <- function(methods="all.fast",datasources.names="all",
         if (tolower(datasources.names)=="all"){
             datasources.names <- c("rogers1000","syntren1000","syntren300",
                 "gnw1565","gnw2000")
+        }else{
+            if(tolower(datasources.names)=="toy"){
+                datasources.names <- "toy"
+            }
         }
     }
+    Availabledata <- c("rogers1000","syntren1000","syntren300",
+        "gnw1565","gnw2000","toy")
     points <- length(experiments)
     nmeths <- length(methods)
     ndata <- length(datasources.names) 
-    Availabledata <- c("rogers1000","syntren1000","syntren300","gnw1565",
-        "gnw2000")
     seeds <- as.list(round(runif(length(Availabledata),max=10000)))
     names(seeds) <- Availabledata
     if (!all(datasources.names %in% Availabledata)){
@@ -38,8 +42,8 @@ experiments.bench <- function(methods="all.fast",datasources.names="all",
     results <- as.data.frame(matrix(0,points*ndata,nmeths+3))
     pval <- as.data.frame(matrix(0,points*ndata,nmeths+3))
     rown <- character()
-    for(n in 1:ndata){
-        cat(paste("Dataset:",datasources.names[n],"\n"))
+    for(n in seq_len(ndata)){
+        message(paste("Dataset:",datasources.names[n],"\n"))
         dataset <- eval(parse(text=paste(datasources.names[n],".data",
             sep="")))
         true.net <- eval(parse(text=paste(datasources.names[n],".net",
@@ -57,15 +61,15 @@ experiments.bench <- function(methods="all.fast",datasources.names="all",
         colnames(tp.local.mat) <- c(methods,"rand")
         l.seed <- eval(parse(text=paste("seeds$",datasources.names[n])))
         set.seed(l.seed)
-        for(i in 1:points){
+        for(i in seq_len(points)){
             m.local <- matrix(0,datasets.num,nmeths+1)
             rdata <- datasource.subsample(dataset,experiments=experiments[i],
                 datasets.num = datasets.num,local.noise = local.noise,
                 global.noise =global.noise,noiseType=noiseType,
                 samplevar=FALSE)
-            for(j in 1:nmeths){
-                cat(paste(methods[j],"\n"))
-                for(k in 1:datasets.num){
+            for(j in seq_len(nmeths)){
+                message(paste(methods[j],"\n"))
+                for(k in seq_len(datasets.num)){
                     net <- do.call(methods[j],list(rdata[[k]]))
                     r <- evaluate(net,true.net,extend=no.edges,sym=sym)
                     tp.local.mat[,j] <- tp.local.mat[,j]+r[1:no.edges,"TP"]
@@ -86,12 +90,12 @@ experiments.bench <- function(methods="all.fast",datasources.names="all",
             M <- which.max(m[i,])
             precision <- tp.local.mat/matrix(rep(1:no.edges,nmeths+1),
                 no.edges)
-            for(j in 1:nmeths){
+            for(j in seq_len(nmeths)){
                 if(j!=M){
                     aux <- wilcox.test(m.local[,j],m.local[,M])
-                    pval.table[i,j]=aux[[3]]
+                    pval.table[i,j] <- aux[[3]]
                 }else{
-                    pval.table[i,j]=1
+                    pval.table[i,j] <- 1
                 }
             }
             rand.net <- matrix(runif(ngenes^2),ngenes,ngenes)

@@ -75,21 +75,22 @@ evaluate <- function(inf.net, true.net,sym=TRUE,extend=0)
     return(r)
 }
 
-`.Adj2Edgelist` <- function(Adjmat,decreasing=TRUE){
+.Adj2Edgelist <- function(Adjmat,decreasing=TRUE){
     idx <- which(Adjmat> 0, arr.ind=TRUE)
     r=idx[,1]; c=idx[,2];
     E <- as.character(rep(0,dim(idx)[1]*3))
-    dim(E) <- c(dim(idx)[1],3)
+    l <- dim(idx)[1]
+    dim(E) <- c(l,3)
     names <- colnames(Adjmat)
-    A <- rep(0,dim(idx)[1])
-    for(i in 1:dim(idx)[1]){
+    A <- rep(0,l)
+    for(i in seq_len(l)){
         E[i,1] <- names[r[i]]
         E[i,2] <- names[c[i]]
         A[i] <- Adjmat[r[i],c[i]]
     }
     a <- sort(A,decreasing =decreasing,index.return = TRUE)
     E <- E[a$ix,]
-    dim(E) <- c(dim(idx)[1],3)
+    dim(E) <- c(l,3)
     E[,3] <- as.character(a$x)
     return(E)
 }

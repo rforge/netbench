@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 #include <iostream>
 #include <fstream>
-#include <set>
+#include <set>          // std::set
 #include <utility>      // std::pair, std::make_pair
 #include <string>       // std::string
 #include <iostream>
@@ -9,9 +9,8 @@
 #include <stdio.h>
 #include <string.h> 
 #include <cstdlib>
-#include <vector>
+#include <vector>       // std::vector
 
-using namespace std;
 using namespace Rcpp;
 
 /* 
@@ -38,22 +37,22 @@ NumericMatrix rate(CharacterMatrix PredEdgeList,CharacterMatrix GSEdgeList,
     int TP=0, npos, nl=0,FP=0,FN,TN;
     npos = GSEdgeList.nrow();
     int N=((ngenes*ngenes)-ngenes)/sym-npos;
-    pair <string,string> auxPair;
-    set <pair <string,string> > GSset;
-    set <pair <string,string> >::iterator it; 
-    string s1, s2;
+    std::pair <std::string,std::string> auxPair;
+    std::set <std::pair <std::string,std::string> > GSset;
+    std::set <std::pair <std::string,std::string> >::iterator it; 
+    std::string s1, s2;
     for(int i=0;i<npos;i++){
         s1=GSEdgeList(i,0);
         s2=GSEdgeList(i,1);
-        auxPair=make_pair(s1,s2);
+        auxPair=std::make_pair(s1,s2);
         GSset.insert(auxPair); 
     }
     nl=PredEdgeList.nrow();
-    vector<int> P(nl,0);
+    std::vector<int> P(nl,0);
     for(int i=0;i<nl;i++){
         s1=PredEdgeList(i,0);
         s2=PredEdgeList(i,1);
-        auxPair=make_pair(s1,s2);
+        auxPair=std::make_pair(s1,s2);
         it=GSset.find(auxPair);
         if(it!=GSset.end()){
             P[i]=1;

@@ -24,8 +24,14 @@ noise.bench <- function(methods="all.fast",datasources.names="all",
         if (tolower(datasources.names)=="all"){
             datasources.names <- c("rogers1000","syntren1000","syntren300",
                 "gnw1565","gnw2000")
+        }else{
+            if(tolower(datasources.names)=="toy"){
+                datasources.names <- "toy"
+            }
         }
     }
+    Availabledata <- c("rogers1000","syntren1000","syntren300",
+        "gnw1565","gnw2000","toy")
     if(length(local.noise)!=length(global.noise)){
         if(length(local.noise)==1){
             points <- length(global.noise)
@@ -37,18 +43,16 @@ noise.bench <- function(methods="all.fast",datasources.names="all",
             stop("Error: mismatch in lengths of local.noise and global.noise")
         }
     }
-    nmeths=length(methods)
-    ndata=length(datasources.names)
+    nmeths <- length(methods)
+    ndata <- length(datasources.names)
     results <- as.data.frame(matrix(0,points*ndata,nmeths+4))
     pval <- as.data.frame(matrix(0,points*ndata,nmeths+4))
-    Aviabledata <- c("rogers1000","syntren1000","syntren300",
-        "gnw1565","gnw2000")
-    seeds <- as.list(round(runif(5,max=10000)))
-    names(seeds) <- Aviabledata
+    seeds <- as.list(round(runif(length(Availabledata),max=1e9)))
+    names(seeds) <- Availabledata
     rown <- character()
-    if (!all(datasources.names %in% Aviabledata)) stop("unknown datasource")
-    for(n in 1:ndata){
-        cat(paste("Datasource:",datasources.names[n],"\n"))
+    if (!all(datasources.names %in% Availabledata)) stop("unknown datasource")
+    for(n in seq_len(ndata)){
+        message(paste("Datasource:",datasources.names[n],"\n"))
         datasource <- eval(parse(text=paste(datasources.names[n],
             ".data",sep="")))
         true.net <- eval(parse(text=paste(datasources.names[n],".net",
@@ -69,10 +73,10 @@ noise.bench <- function(methods="all.fast",datasources.names="all",
         set.seed(l.seed)
         spd <- datasource.subsample(datasource,experiments=experiments,
             datasets.num = datasets.num,local.noise = 0,global.noise = 0)
-        for(i in 1:points){
+        for(i in seq_len(points)){
             m.local <- matrix(0,datasets.num,nmeths+1)
             rdata <- vector('list',datasets.num)
-            for(k in 1:datasets.num){
+            for(k in seq_len(datasets.num)){
                 if(local.noise[i]!=0){
                     rdata[[k]] <- apply(spd[[k]],2,.cont,
                         noise=local.noise[i],noiseType=noiseType)
@@ -92,9 +96,9 @@ noise.bench <- function(methods="all.fast",datasources.names="all",
                     rdata[[k]] <- rdata[[k]]+Gnoise
                 }
             }
-            for(j in 1:nmeths){
-                cat(paste(methods[j],"\n"))
-                for(k in 1:datasets.num){
+            for(j in seq_len(nmeths)){
+                message(paste(methods[j],"\n"))
+                for(k in seq_len(datasets.num)){
                     net <- do.call(methods[j],list(rdata[[k]]))
                     r <- evaluate(net,true.net,extend=no.edges,sym=sym)
                     tp.local.mat[,j] <- tp.local.mat[,j]+r[1:no.edges,"TP"]
@@ -112,7 +116,7 @@ noise.bench <- function(methods="all.fast",datasources.names="all",
             M <- which.max(m[i,])
             precision <- tp.local.mat/matrix(rep(1:no.edges,nmeths+1),
                 no.edges)
-            for(j in 1:nmeths){
+            for(j in seq_len(nmeths)){
                 if(j!=M){
                     aux <- wilcox.test(m.local[,j],m.local[,M])
                     pval.table[i,j]=aux[[3]]
@@ -156,7 +160,7 @@ noise.bench <- function(methods="all.fast",datasources.names="all",
     list("results"=results,"pval"=pval,"seed"=seed)
 }
 
-`.cont` <- function(x,noise=0,noiseType="normal"){
+.cont <- function(x,noise=0,noiseType="normal"){
     s.d <- noise*sd(x)/100
     if(noiseType=="normal"){
         n <- rnorm(length(x),mean=0,sd=s.d)
