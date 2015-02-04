@@ -9,9 +9,9 @@
     getData(datasource.name=NULL,getNet=TRUE)
 } 
 \arguments{
-    \item{datasource.name}{A strings containing the name of 
+    \item{datasource.name}{A character containing the name of 
     network datasources to (default: NULL).}
-    \item{getNet}{Boolean specifying if the true underlying network should be
+    \item{getNet}{Logical specifying if the true underlying network should be
     returned (default: TRUE).}
 }
 \value{

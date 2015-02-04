@@ -15,7 +15,7 @@
     Columns contain variables and rows contain samples.}
 }
 \value{
-    A matrix of doubles with the inferred adjacency matrix.
+    A matrix of numerics with the inferred adjacency matrix.
 }
 \references{
     Prill, Robert J., et al. "Towards a rigorous assessment of systems 

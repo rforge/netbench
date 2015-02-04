@@ -5,17 +5,10 @@
                                noiseType=c("normal","lognormal"),
                                datasets.num = 2,experiments = 40,
                                seed=1422976420)
+   
 
-## ----noise_study---------------------------------------------------------
-    noise.aupr <- noise.bench(methods="all",local.noise=seq(0,100,l=3),
-                              datasources.names = "Toy",datasets.num=2,
-                              experiments = 40,seed=2629)
-
-## ----experiments_study---------------------------------------------------
-    experiments.aupr <- experiments.bench(methods="all",
-                                          datasources.names = "Toy",
-                                          experiments=c(20,30,60),
-                                          datasets.num=2,seed=4677)
+## ----print---------------------------------------------------------------
+   print(top20.aupr[[1]])
 
 ## ----wrapper_examples----------------------------------------------------
     Spearmancor <- function(data){
@@ -42,4 +35,15 @@
     lines(PR$rec[,2],PR$pre[,2],type="l",lwd=3,col=col[2])
     lines(PR$rec[,3],PR$pre[,3],type="l",lwd=3,col=col[3])
     legend("topright", inset=.05,title="Method",colnames(PR$rec),fill=col)
+
+## ----compare_grn---------------------------------------------------------
+    comp <- netbenchmark(datasources.names="syntren300",
+        methods=c("all.fast","Spearmancor","Pearsoncor"))
+    aupr <- comp[[1]][,-(1:2)]
+
+## ----fig.width=7, fig.height=6-------------------------------------------
+    #make the name look prety
+    library("tools")
+    colnames(aupr) <- sapply(colnames(aupr),file_path_sans_ext)
+    boxplot(aupr, main="Syntren300")
 

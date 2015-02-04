@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Netbenchmark}
-  %\VignetteEngine{knitr::knitr}
+  %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
 
@@ -32,21 +32,11 @@ Toy example for main benchmark:
                                noiseType=c("normal","lognormal"),
                                datasets.num = 2,experiments = 40,
                                seed=1422976420)
+   
 ```
-
-To generate results of toy noise study:
-```{r noise_study}
-    noise.aupr <- noise.bench(methods="all",local.noise=seq(0,100,l=3),
-                              datasources.names = "Toy",datasets.num=2,
-                              experiments = 40,seed=2629)
-```
-
-To generate results of the number of experiments study:
-```{r experiments_study}
-    experiments.aupr <- experiments.bench(methods="all",
-                                          datasources.names = "Toy",
-                                          experiments=c(20,30,60),
-                                          datasets.num=2,seed=4677)
+The first element of the returned list is the $AUPR_{20}$:
+```{r print}
+   print(top20.aupr[[1]])
 ```
 
 The package provides an easy way to compare new techniques with  
@@ -74,7 +64,7 @@ datasource:
         methods=c("Spearmancor","Pearsoncor"))
     aupr <- res[[1]][,-(1:2)]
 ```
-Plot the $AUPR_{20}$ results:
+Make a boxplot the $AUPR_{20}$ results:
 ```{r fig.width=7, fig.height=6}
     boxplot(aupr, main="Syntren300")
 ```
@@ -88,4 +78,20 @@ Plot the mean Precision-Recall curves:
     lines(PR$rec[,2],PR$pre[,2],type="l",lwd=3,col=col[2])
     lines(PR$rec[,3],PR$pre[,3],type="l",lwd=3,col=col[3])
     legend("topright", inset=.05,title="Method",colnames(PR$rec),fill=col)
+```
+
+We can also compare these two simple inference methods with the fast network 
+inference algorithms using syntren300 datasource:
+```{r compare_grn}
+    comp <- netbenchmark(datasources.names="syntren300",
+        methods=c("all.fast","Spearmancor","Pearsoncor"))
+    aupr <- comp[[1]][,-(1:2)]
+```
+
+Make a boxplot the $AUPR_{20}$ results:
+```{r fig.width=7, fig.height=6}
+    #make the name look prety
+    library("tools")
+    colnames(aupr) <- sapply(colnames(aupr),file_path_sans_ext)
+    boxplot(aupr, main="Syntren300")
 ```
