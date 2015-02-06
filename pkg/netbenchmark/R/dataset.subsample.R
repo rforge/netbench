@@ -1,6 +1,9 @@
 datasource.subsample <- function(datasource,experiments=NA,datasets.num=5,
-    local.noise=20,global.noise=0,noiseType="normal",samplevar=TRUE)
+    local.noise=20,global.noise=0,noiseType="normal",samplevar=TRUE,seed=NULL)
 {
+    if(!is.null(seed)){
+      set.seed(seed)
+    }
     #sampledata
     s <- dim(datasource) # obs x variables
     if(is.na(experiments)){
