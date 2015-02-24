@@ -32,6 +32,7 @@ experiments.bench <- function(methods="all.fast",datasources.names="all",
     points <- length(experiments)
     nmeths <- length(methods)
     ndata <- length(datasources.names) 
+    Availabledata <- eval(parse(text="Availabledata"))
     seeds <- as.list(round(runif(length(Availabledata),max=10000)))
     names(seeds) <- Availabledata
     if (!all(datasources.names %in% Availabledata)){

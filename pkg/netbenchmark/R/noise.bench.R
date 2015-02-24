@@ -45,6 +45,7 @@ noise.bench <- function(methods="all.fast",datasources.names="all",
     ndata <- length(datasources.names)
     results <- as.data.frame(matrix(0,points*ndata,nmeths+4))
     pval <- as.data.frame(matrix(0,points*ndata,nmeths+4))
+    Availabledata <- eval(parse(text="Availabledata"))
     seeds <- as.list(round(runif(length(Availabledata),max=1e9)))
     names(seeds) <- Availabledata
     rown <- character()

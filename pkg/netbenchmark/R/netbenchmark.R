@@ -29,6 +29,7 @@ netbenchmark <- function(methods="all.fast",datasources.names="all",
             }
         }
     }
+    Availabledata <- eval(parse(text="Availabledata"))
     if(!all(datasources.names %in% Availabledata)){
         stop("The specified datasources are not available")
     }
