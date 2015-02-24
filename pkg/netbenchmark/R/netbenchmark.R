@@ -1,6 +1,6 @@
 netbenchmark <- function(methods="all.fast",datasources.names="all",
     experiments=150,eval="AUPR",no.topedges=20,datasets.num=5,local.noise=20,
-    global.noise=0,noiseType="normal",sym=TRUE,plot=FALSE,seed=NULL)
+    global.noise=0,noiseType="normal",sym=TRUE,plot=FALSE,seed=NULL,verbose=TRUE)
 {
     options(warn=1)
     # set random number generator seed if seed is given
@@ -29,8 +29,6 @@ netbenchmark <- function(methods="all.fast",datasources.names="all",
             }
         }
     }
-    Availabledata <- c("rogers1000","syntren1000","syntren300",
-        "gnw1565","gnw2000","toy")
     if(!all(datasources.names %in% Availabledata)){
         stop("The specified datasources are not available")
     }
@@ -66,7 +64,9 @@ netbenchmark <- function(methods="all.fast",datasources.names="all",
     rownames(time.table) <- as.character(1:nnets)
     plots <- list(ndata)
     for(n in seq_len(ndata)){ #for each of the datasources
-        message(paste("datasource:",datasources.names[n],"\n"))
+        if(verbose){
+            message(paste("datasource:",datasources.names[n]))
+        }
         datasource <- eval(parse(text=paste(datasources.names[n],
             ".data",sep="")))
         true.net <- eval(parse(text=paste(datasources.names[n],".net",
@@ -98,13 +98,17 @@ netbenchmark <- function(methods="all.fast",datasources.names="all",
             c.row <- (n-1)*datasets.num+i  
             results.table[c.row,1]=datasources.names[n]
             results.table[c.row,2]=dim(sd)[1]
-            message(paste(" dataset:",as.character(i),"\n"))
+            if(verbose){
+                message(paste(" dataset:",as.character(i)))
+            }
             conf.mat <-  matrix(0,nrow=nmeths,ncol=4)
             colnames(conf.mat) <- c("TP","FP","TN","FN")
             rownames(conf.mat) <- names
             best <- 0
             for(j in seq_len(nmeths)){
-                message(paste(names[j],"\n"))
+                if(verbose){
+                    message(names[j])
+                }    
                 ptm <- proc.time()
                 net <- do.call(names[j],list(sd))
                 t <- proc.time() - ptm
@@ -137,7 +141,7 @@ netbenchmark <- function(methods="all.fast",datasources.names="all",
             rownames(rand.net) <- colnames(net)
             r <- evaluate(rand.net,true.net,extend=no.edges,sym=sym)
             tp.local.mat[,nmeths+1] <- r[1:no.edges,"TP"]
-            if( tolower(eval)=="no.truepos"){
+            if( tolower(eval)== "no.truepos"){
                 results.table[c.row,nmeths+3]=mean(r[1:no.edges,"TP"])
             }else if (tolower(eval)== "aupr"){
                 results.table[c.row,nmeths+3]=aupr(r,no.edges)
@@ -147,7 +151,7 @@ netbenchmark <- function(methods="all.fast",datasources.names="all",
             tp.mat <- tp.mat+tp.local.mat
         }
         res <- results.table[(1:datasets.num)+datasets.num*(n-1),-(1:2)]
-        which.max(apply(res,2,mean))->M
+        M <- which.max(apply(res,2,mean))
         for(j in seq_len(nmeths)){
             if(j!=M){
                 aux <- wilcox.test(res[,j],res[,M])
@@ -163,12 +167,6 @@ netbenchmark <- function(methods="all.fast",datasources.names="all",
                 lwd=2.5)
         }
         plots[[n]] <- m.pr
-        rm(datasource) 
-        rm(true.net) 
-        rm(npos)
-        rm(nlinks)
-        rm(nneg)
-        rm(r)
     }
     names(plots) <- datasources.names
     pval.table[,1] <- datasources.names

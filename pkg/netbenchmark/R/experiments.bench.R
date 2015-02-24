@@ -29,8 +29,6 @@ experiments.bench <- function(methods="all.fast",datasources.names="all",
             }
         }
     }
-    Availabledata <- c("rogers1000","syntren1000","syntren300",
-        "gnw1565","gnw2000","toy")
     points <- length(experiments)
     nmeths <- length(methods)
     ndata <- length(datasources.names) 

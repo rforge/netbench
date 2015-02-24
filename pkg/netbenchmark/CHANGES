@@ -27,7 +27,8 @@ netbenchmark_0.98.3
 netbenchmark_0.98.4
       - Renaming of function to follow the standard naming 
       - Simplification of the wrapper functions
-      - Inference algorithms and metanetworks methods are now specified via list of characters
+      - Inference algorithms and metanetworks methods are now specified via 
+        list of characters
       - Evaluation of symetric matrices only 
       - Added function to make undirected network from directed one
 netbenchmark_0.98.5
@@ -47,3 +48,9 @@ netbenchmark_0.99.1
       - Removing backticks of anonymous functions
       - C++ namespace hygene
       - Adding toy examples to allow check and vignette building
+netbenchmark_0.99.2
+      - Giving credit to the Genie3 author
+      - Adding minimum version of grndata
+      - Adding verbose option to reduce clutter in vignette output
+      - Use of R's garbage collector 
+      - Fix to 'message' use

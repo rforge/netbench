@@ -32,7 +32,7 @@ datasource.subsample <- function(datasource,experiments=NA,datasets.num=5,
         idxs <- sample(s[1],sum(smps),replace = FALSE) 
     }
     if(length(noiseType)==1){
-        rep(noiseType,2)->noiseType
+        noiseType <- rep(noiseType,2)
     }
     for(n in seq_len(datasets.num)){
         idx <- idxs[1:smps[n]]

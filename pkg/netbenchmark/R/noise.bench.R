@@ -30,8 +30,6 @@ noise.bench <- function(methods="all.fast",datasources.names="all",
             }
         }
     }
-    Availabledata <- c("rogers1000","syntren1000","syntren300",
-        "gnw1565","gnw2000","toy")
     if(length(local.noise)!=length(global.noise)){
         if(length(local.noise)==1){
             points <- length(global.noise)
