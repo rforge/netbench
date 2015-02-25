@@ -9,7 +9,7 @@
 \usage{
     datasource.subsample(datasource,experiments=NA,datasets.num=5,
         local.noise=20,global.noise=0,noiseType="normal",
-        samplevar=TRUE)
+        samplevar=TRUE, seed = NULL)
 }
 \arguments{
     \item{datasource}{data.frame where columns contain variables and 
@@ -27,7 +27,12 @@
     (default: 0).}
     \item{noiseType}{Character specifying the type of the noise to be 
     added: "normal" (default: "normal").}
-    \item{samplevar}{(default: TRUE).}
+    \item{samplevar}{Logical specifying if the datasets should have 
+    variability in the number of experiments between them 
+    (default: TRUE).}
+    \item{seed}{A single value, interpreted as an integer to specify seeds, 
+    useful for creating simulations that can be reproduced 
+    (default: \code{NULL}) - see \code{\link[base]{set.seed}}.}	
 }
 \value{
     \code{datasource.subsample} returns a list with 

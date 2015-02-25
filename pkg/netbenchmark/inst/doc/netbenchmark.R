@@ -4,8 +4,8 @@
                                local.noise=20,global.noise=10,
                                noiseType=c("normal","lognormal"),
                                datasets.num = 2,experiments = 40,
-                               seed=1422976420)
-   
+                               seed=1422976420,verbose=FALSE)
+
 
 ## ----print---------------------------------------------------------------
    print(top20.aupr[[1]])
@@ -17,15 +17,15 @@
 
     Pearsoncor <- function(data){
         cor(data,method="pearson")
-    }
+   }
 
 ## ----evaluate_grn--------------------------------------------------------
     res <- netbenchmark(datasources.names="syntren300",
-        methods=c("Spearmancor","Pearsoncor"))
+        methods=c("Spearmancor","Pearsoncor"),verbose=FALSE)
     aupr <- res[[1]][,-(1:2)]
 
 ## ----fig.width=7, fig.height=6-------------------------------------------
-    boxplot(aupr, main="Syntren300")
+    boxplot(aupr, main="Syntren300",ylab=expression('AUPR'[20]))
 
 ## ----fig.width=7, fig.height=6-------------------------------------------
     PR <- res[[5]][[1]]
@@ -38,12 +38,12 @@
 
 ## ----compare_grn---------------------------------------------------------
     comp <- netbenchmark(datasources.names="syntren300",
-        methods=c("all.fast","Spearmancor","Pearsoncor"))
+        methods=c("all.fast","Spearmancor","Pearsoncor"),verbose=FALSE)
     aupr <- comp[[1]][,-(1:2)]
 
 ## ----fig.width=7, fig.height=6-------------------------------------------
     #make the name look prety
     library("tools")
     colnames(aupr) <- sapply(colnames(aupr),file_path_sans_ext)
-    boxplot(aupr, main="Syntren300")
+    boxplot(aupr, main="Syntren300", ylab=expression('AUPR'[20]))
 
